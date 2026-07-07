@@ -1,5 +1,5 @@
 import HomeMainImage from "@/components/home/home-main-image";
-import HomeStory from "@/components/home-story";
+import HomeReasonsToBuy from "@/components/home-reasons-to-buy";
 import ProductCard from "@/components/product-card";
 
 export default async function Home() {
@@ -1834,7 +1834,7 @@ export default async function Home() {
       </footer> */}
 
       <HomeMainImage />
-      <HomeStory />
+      <HomeReasonsToBuy />
       <ProductCard />
     </>
   );
