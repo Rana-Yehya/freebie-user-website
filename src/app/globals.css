@@ -27,3 +27,10 @@ body {
   color: var(--foreground);
   font-family: Marhey;
 }
+
+  div::-webkit-scrollbar {
+          display: none;
+        }
+        .scroll-smooth {
+          scroll-behavior: smooth;
+        }
