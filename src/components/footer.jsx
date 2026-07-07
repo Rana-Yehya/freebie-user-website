@@ -1,6 +1,8 @@
+"use client";
 import Link from "next/link";
 import Image from "next/image";
-import TwitterIcon from "../../public/twitter.svg";
+import TwitterIcon from "@/public/twitter.svg";
+import CustomButton from "@/components/utils/custom-button";
 
 export default function Footer() {
   return (
@@ -35,7 +37,7 @@ export default function Footer() {
                   styles="display: inline-block; opacity: 1; transform: translateY(0px); filter: blur(0px);"
                 >
                   With you, in every occasion. Delivering joy and sweetness
-                  through curated gifts since 2024.
+                  through curated gifts since 2026.
                 </span>
               </span>
             </p>
@@ -45,22 +47,17 @@ export default function Footer() {
               className="flex flex-wrap gap-4 mb-10"
               styles="opacity: 1; transform: translateY(0px); filter: blur(0px);"
             >
-              <a
-                data-motion="button"
-                href="#"
-                className="inline-flex items-center gap-2 px-6 py-3 bg-indigo-500 hover:bg-indigo-600 transition-colors rounded-full text-white font-semibold"
-                styles="opacity: 1; transform: translateY(0px); filter: blur(0px);"
-              >
-                Start a Project
-              </a>
-              <a
-                data-motion="button"
-                href="#"
-                className="inline-flex items-center gap-2 px-6 py-3 border-2 border-indigo-500 text-indigo-500 dark:text-indigo-400 hover:bg-indigo-500 hover:text-white transition-colors rounded-full font-semibold"
-                styles="opacity: 1; transform: translateY(0px); filter: blur(0px);"
-              >
-                Get in Touch
-              </a>
+           
+             <CustomButton
+                            href="/category"
+                            title="Get in Touch"
+                            className="w-fit bg-primary hover:border-neutral-200 hover:bg-[#f5a80a] hover:text-white"
+                          />
+                           {/* <CustomButton
+                            href="/about"
+                            title="Get in Touch"
+                            className="bg-transparent text-background lg:flex text-sm font-medium transition-all text-neutral-600 hover:text-[#fbb72c] relative after:absolute after:bottom-0 after:-translate-x-1/2 hover:after:w-full after:left-1/2 after:w-0 after:h-0.5 after:bg-[#fbb72c] hover:after:w-full after:transition-all px-3 py-2 hidden lg:flex px-3 py-2 text-sm font-medium transition hover:text-primary text-white inline-flex items-center gap-2 hover:gap-3 transition-all duration-300"
+                          /> */}
             </div>
 
             <div
@@ -244,7 +241,7 @@ export default function Footer() {
             © 2026 Pixel Studio. All rights reserved.
           </p>
           <div className="flex items-center gap-6">
-            <Link
+            {/* <Link
               href="#"
               className="text-slate-500 hover:text-indigo-500 text-sm transition-colors"
             >
@@ -261,7 +258,7 @@ export default function Footer() {
               className="text-slate-500 hover:text-indigo-500 text-sm transition-colors"
             >
               Cookies
-            </Link>
+            </Link> */}
           </div>
         </div>
       </div>

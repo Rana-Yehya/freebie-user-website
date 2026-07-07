@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Marhey } from "next/font/google";
 import "./globals.css";
-import Header from "@/components/header";
+import Header from "@/components/header/header";
 import Footer from "@/components/footer";
 
 const marhey = Marhey({
