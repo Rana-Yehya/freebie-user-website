@@ -1,6 +1,6 @@
 import CustomButton from "@/components/utils/custom-button";
 import HomeMainImageText from "./home-main-image-text";
-import HomeSubtitle from "./home-subtitle"
+import HomeSubtitle from "./home-subtitle";
 export default function HomeMainImage() {
   return (
     <section
@@ -34,18 +34,18 @@ export default function HomeMainImage() {
 
           {/* <!-- Content Overlay --> */}
           <div className="text-center max-w-3xl mx-auto mb-12 absolute bottom-0 left-0 right-0 p-6 sm:p-10 lg:p-12">
-                <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-slate-900 dark:text-white leading-[1.1]">
-                  <HomeMainImageText title="The" />
-                  <HomeMainImageText title="Best" />
-                  <HomeMainImageText title="Feelings" />
-                  <HomeMainImageText title="Are" />
+            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-slate-900 dark:text-white leading-[1.1]">
+              <HomeMainImageText title="The" />
+              <HomeMainImageText title="Best" />
+              <HomeMainImageText title="Feelings" />
+              <HomeMainImageText title="Are" />
 
-                  <HomeMainImageText title="Always" />
-                  <HomeMainImageText title="HERE" className="text-primary" />
-                </h1>
-             
-<HomeSubtitle />
-              {/* <span className="
+              <HomeMainImageText title="Always" />
+              <HomeMainImageText title="HERE" className="text-primary" />
+            </h1>
+
+            <HomeSubtitle />
+            {/* <span className="
                   block
                   text-justify
                   leading-relaxed
@@ -57,7 +57,7 @@ export default function HomeMainImage() {
                  Curated gift boxes, lovely 
                   plushies, and blooming surprises delivered straight to their door. 
                 </span> */}
-              {/* <span className="
+            {/* <span className="
                   block
                   text-justify
                   leading-relaxed
@@ -68,19 +68,19 @@ export default function HomeMainImage() {
                   Spread joy in every occasion. Curated gift boxes, lovely 
                   plushies, and blooming surprises delivered straight to their door.
                 </span> */}
-              {/*  Curated gift boxes, lovely plushies, and <span className="w-1 h-1 bg-slate-400 rounded-full"></span> */}
-              {/* <span>Jan 6, 2026</span> */}
-                   <div className="flex flex-wrap justify-center gap-4 pt-2">
- <CustomButton
-              href="/category"
-              title="View Collection"
-              className="w-fit bg-primary hover:border-neutral-200 hover:bg-[#f5a80a] hover:text-white"
-            />
-             <CustomButton
-              href="/about"
-              title="Watch Our Story"
-              className="bg-transparent text-background lg:flex text-sm font-medium transition-all text-neutral-600 hover:text-[#fbb72c] relative after:absolute after:bottom-0 after:-translate-x-1/2 hover:after:w-full after:left-1/2 after:w-0 after:h-0.5 after:bg-[#fbb72c] hover:after:w-full after:transition-all px-3 py-2 hidden lg:flex px-3 py-2 text-sm font-medium transition hover:text-primary text-white inline-flex items-center gap-2 hover:gap-3 transition-all duration-300"
-            />
+            {/*  Curated gift boxes, lovely plushies, and <span className="w-1 h-1 bg-slate-400 rounded-full"></span> */}
+            {/* <span>Jan 6, 2026</span> */}
+            <div className="flex flex-wrap justify-center gap-4 pt-2">
+              <CustomButton
+                href="/category"
+                title="View Collection"
+                className="w-fit bg-primary hover:border-neutral-200 hover:bg-[#f5a80a] hover:text-white"
+              />
+              <CustomButton
+                href="/about"
+                title="Watch Our Story"
+                className="bg-transparent text-background lg:flex text-sm font-medium transition-all text-neutral-600 hover:text-[#fbb72c] relative after:absolute after:bottom-0 after:-translate-x-1/2 hover:after:w-full after:left-1/2 after:w-0 after:h-0.5 after:bg-[#fbb72c] hover:after:w-full after:transition-all px-3 py-2 hidden lg:flex px-3 py-2 text-sm font-medium transition hover:text-primary text-white inline-flex items-center gap-2 hover:gap-3 transition-all duration-300"
+              />
             </div>
             {/* <div
                 data-motion="meta"
@@ -107,8 +107,8 @@ export default function HomeMainImage() {
          
               </div> */}
           </div>
-      </div>            </div>
-
+        </div>{" "}
+      </div>
     </section>
   );
 }
