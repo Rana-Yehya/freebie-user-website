@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 
 interface RatingProps {
   rating: number; // 0-5
@@ -20,8 +21,8 @@ export default function RatingDisplay({
   maxRating = 5,
   size = 5,
   color = "text-honey",
-  showNumber = false,
-  showReviews = false,
+  showNumber = true,
+  showReviews = true,
   reviewCount = 0,
   className = "",
   interactive = false,
@@ -64,16 +65,9 @@ export default function RatingDisplay({
   };
 
   const starClass = `w-${size} h-${size} ${color}`;
+
   return (
-    <div
-      data-motion="rating"
-      className="flex items-center gap-3"
-      style={{
-        opacity: 1,
-        transform: "translateY(0px)",
-        filter: "blur(0px)",
-      }}
-    >
+    <div className="flex items-center gap-3">
       <div
         className={`flex items-center gap-0.5 ${className}`}
         onMouseLeave={handleMouseLeave}
@@ -82,8 +76,6 @@ export default function RatingDisplay({
           const starIndex = i + 1;
           const starType = getStarType(starIndex);
           const src = `/star-${starType}.svg`;
-          const isInteractive =
-            interactive && starIndex === Math.ceil(displayRating);
 
           return (
             <button
@@ -95,24 +87,26 @@ export default function RatingDisplay({
               disabled={!interactive}
               aria-label={`${starIndex} stars`}
             >
-              <img
+              <Image
                 src={src}
                 alt={`${starType} star`}
                 width={size * 4}
                 height={size * 4}
-                className={`${starClass} ${starType === "empty" ? "text-gray-300 dark:text-gray-600" : ""}`}
+                className={starClass}
               />
             </button>
           );
         })}
 
-        {/* Show Rating Number */}
         {showNumber && (
-          // <span className="ml-2 text-sm font-medium text-slate-600 dark:text-neutral-400">
-          //   {rating.toFixed(1)}
-          // </span>
-          <span className="text-slate-600 dark:text-neutral-400 text-sm">
-            (rating.toFixed(1))
+          <span className="ml-1 text-sm font-medium text-slate-600 dark:text-neutral-400">
+            {rating.toFixed(1)}
+          </span>
+        )}
+
+        {showReviews && reviewCount > 0 && (
+          <span className="ml-1 text-slate-600 dark:text-neutral-400 text-sm">
+            ({reviewCount})
           </span>
         )}
       </div>

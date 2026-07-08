@@ -12,7 +12,7 @@
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-primary: var(--primary);
-  --color-secondary: var(--secondary);  
+  --color-secondary: var(--secondary);
   --color-honey: var(--honey);
   --font-marhey: var(--font-marhey);
 }
@@ -34,4 +34,19 @@ div::-webkit-scrollbar {
 }
 .scroll-smooth {
   scroll-behavior: smooth;
+}
+.strikethrough-diagonal {
+  position: relative;
+  font-weight: bold;
+}
+
+.strikethrough-diagonal:before {
+  position: absolute;
+  content: "";
+  left: 0;
+  top: 45%;
+  right: 0;
+  border-top: 3px solid;
+  border-color: red;
+  transform: skewY(-10deg);
 }
