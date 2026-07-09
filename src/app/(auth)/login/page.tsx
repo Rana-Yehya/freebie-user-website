@@ -1,14 +1,12 @@
 import { Metadata } from "next";
-import RegisterCard from "./register-card";
-
+import LoginCard from "./login-card";
 export const metadata: Metadata = {
-  title: "Register",
+  title: "Login",
 };
-
-export default function Register() {
+export default function Login() {
   return (
     <section className="bg-gray-50 px-4 py-36 md:px-8">
-      <RegisterCard />
+      <LoginCard />
     </section>
   );
 }

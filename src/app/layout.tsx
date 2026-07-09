@@ -9,7 +9,10 @@ const marhey = Marhey({
 });
 
 export const metadata: Metadata = {
-  title: "Home | Freebie Gifts",
+  title: {
+    template: "%s | Freebie Gifts",
+    default: "Home | Freebie Gifts",
+  },
   description: "Freebie Gifts",
 };
 
