@@ -1,15 +1,16 @@
 import { Metadata } from "next";
-import LoginCard from "./login-card";
+import ShoppingCart from "./shopping-cart";
 export const metadata: Metadata = {
-  title: "Login",
+  title: "Cart",
 };
-export default function Login() {
+
+export default function Cart() {
   return (
     <section
       id="_product_asymmetric_split_v6_005"
-      className="py-20 sm:py-24 bg-white"
+      className="py-20 sm:py-24 bg-gray-50"
     >
-      <LoginCard />
+      <ShoppingCart />
     </section>
   );
 }

@@ -7,7 +7,10 @@ export const metadata: Metadata = {
 
 export default function Register() {
   return (
-    <section className="bg-gray-50 px-4 py-36 md:px-8">
+    <section
+      id="_product_asymmetric_split_v6_005"
+      className="py-20 sm:py-24 bg-white"
+    >
       <RegisterCard />
     </section>
   );
