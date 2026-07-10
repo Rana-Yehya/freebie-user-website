@@ -1,6 +1,6 @@
 interface HomeMainImageTextProps {
   title: string;
-  className: string;
+  className?: string;
 }
 {
   /* <!-- Content Overlay --> */

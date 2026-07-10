@@ -1,6 +1,10 @@
+"use-client";
+import { useRouter } from "next/navigation";
 import CustomButton from "@/components/utils/custom-button";
 
 export default function OrderSummary() {
+  const router = useRouter();
+
   return (
     <div className="lg:p-6 lg:pr-0 h-full lg:border-l lg:border-slate-300 lg:sticky lg:top-0">
       <h3 className="text-lg font-semibold text-slate-900 border-b border-slate-300 pb-4">
@@ -23,7 +27,9 @@ export default function OrderSummary() {
 
       <div className="mt-6 space-y-3 flex flex-col items-center justify-center text-center">
         <CustomButton
-          onClick={() => {}}
+          onClick={() => {
+            router.push("/checkout");
+          }}
           title="Proceed to Checkout →"
           className="w-full bg-primary hover:border-neutral-200 hover:bg-honey hover:text-white font-semibold py-3 px-4 rounded-lg transition-colors text-center"
         />

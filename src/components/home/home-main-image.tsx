@@ -1,12 +1,9 @@
 import CustomButton from "@/components/utils/custom-button";
-import HomeMainImageText from "./home-main-image-text";
 import HomeSubtitle from "./home-subtitle";
+import HomeMainImageText from "./home-main-image-text";
 export default function HomeMainImage() {
   return (
-    <section
-      id="_blogdetails_featured_image_v6_001"
-      className="bg-white dark:bg-neutral-950 overflow-hidden"
-    >
+    <section className="bg-white dark:bg-neutral-950 overflow-hidden">
       <div className="max-w-8xl mx-auto">
         {/* <!-- Hero Image with Overlay --> */}
         <div className="relative overflow-hidden">
@@ -72,12 +69,14 @@ export default function HomeMainImage() {
             {/* <span>Jan 6, 2026</span> */}
             <div className="flex flex-wrap justify-center gap-4 pt-2">
               <CustomButton
-                href="/category"
+                // href="/category"
+                onClick={() => {}}
                 title="View Collection"
                 className="w-fit bg-primary hover:border-neutral-200 hover:bg-[#f5a80a] hover:text-white"
               />
               <CustomButton
-                href="/about"
+                // href="/about"
+                onClick={() => {}}
                 title="Watch Our Story"
                 className="bg-transparent text-background lg:flex text-sm font-medium transition-all text-neutral-600 hover:text-[#fbb72c] relative after:absolute after:bottom-0 after:-translate-x-1/2 hover:after:w-full after:left-1/2 after:w-0 after:h-0.5 after:bg-[#fbb72c] hover:after:w-full after:transition-all px-3 py-2 hidden lg:flex px-3 py-2 text-sm font-medium transition hover:text-primary text-white inline-flex items-center gap-2 hover:gap-3 transition-all duration-300"
               />

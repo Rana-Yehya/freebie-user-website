@@ -1,5 +1,3 @@
-import Link from "next/link";
-
 interface CustomButtonProps {
   type?: "button" | "submit" | "reset";
   title: string;

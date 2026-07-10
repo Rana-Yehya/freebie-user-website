@@ -1,14 +1,8 @@
 "use client";
 import Link from "next/link";
 import Image from "next/image";
-import TwitterIcon from "@/public/twitter.svg";
 import CustomButton from "@/components/utils/custom-button";
-import FacebookIcon from "@/public/facebook.svg";
-import LinkedInIcon from "@/public/linkedin.svg";
-import InstagramIcon from "@/public/instagram.svg";
-import YoutubeIcon from "@/public/youtube.svg";
-import TiktokIcon from "@/public/tiktok.svg"
-import SnapchatIcon from "@/public/snapchat.svg";
+import { FooterSocialMediaIcon } from "./social-media-icon";
 
 export default function Footer() {
   return (
@@ -20,13 +14,22 @@ export default function Footer() {
         <div className="grid lg:grid-cols-2 gap-16 py-16 border-b border-slate-200 dark:border-neutral-800">
           <div
             data-motion="cta"
-            styles="opacity: 1; transform: translateY(0px); filter: blur(0px);"
+            style={{
+              opacity: 1,
+              transform: "translateY(0px)",
+              filter: "blur(0px)",
+            }}
           >
             <h2 className="text-slate-900 dark:text-white text-3xl lg:text-4xl font-bold leading-tight mb-6">
-              <span data-animate="heading" styles="opacity: 1;">
+              <span data-animate="heading" style={{ opacity: 1 }}>
                 <span
                   className="motion-word"
-                  styles="display: inline-block; opacity: 1; transform: translateY(0px); filter: blur(0px);"
+                  style={{
+                    display: "inline-block",
+                    opacity: 1,
+                    transform: "translateY(0px)",
+                    filter: "blur(0px)",
+                  }}
                 >
                   Freebie
                 </span>
@@ -35,12 +38,21 @@ export default function Footer() {
             <p
               data-motion="text"
               className="text-slate-600 dark:text-neutral-400 text-lg mb-8 max-w-md"
-              styles="opacity: 1; transform: translateY(0px); filter: blur(0px);"
+              style={{
+                opacity: 1,
+                transform: "translateY(0px)",
+                filter: "blur(0px)",
+              }}
             >
-              <span data-animate="text" styles="opacity: 1;">
+              <span data-animate="text" style={{ opacity: 1 }}>
                 <span
                   className="motion-word"
-                  styles="display: inline-block; opacity: 1; transform: translateY(0px); filter: blur(0px);"
+                  style={{
+                    display: "inline-block",
+                    opacity: 1,
+                    transform: "translateY(0px)",
+                    filter: "blur(0px)",
+                  }}
                 >
                   With you, in every occasion. Delivering joy and sweetness
                   through curated gifts since 2026.
@@ -51,10 +63,14 @@ export default function Footer() {
             <div
               data-motion="buttons"
               className="flex flex-wrap gap-4 mb-10"
-              styles="opacity: 1; transform: translateY(0px); filter: blur(0px);"
+              style={{
+                opacity: 1,
+                transform: "translateY(0px)",
+                filter: "blur(0px)",
+              }}
             >
               <CustomButton
-                href="/category"
+                onClick={() => {}}
                 title="Get in Touch"
                 className="w-fit bg-primary hover:border-neutral-200 hover:bg-[#f5a80a] hover:text-white"
               />
@@ -65,69 +81,17 @@ export default function Footer() {
                           /> */}
             </div>
 
-            <div
-              data-motion="social"
-              className="flex items-center gap-4"
-              styles="opacity: 1; transform: translateY(0px); filter: blur(0px);"
-            >
-              <span className="text-slate-500 text-sm">Follow us:</span>
-              <Link
-                href="#"
-                className="bg-gray text-slate-400 hover:text-indigo-500"
-                aria-label="X"
-              >
-                <TwitterIcon className="w-6 h-6 primary" />
-              </Link>
-              <Link
-                href="#"
-                className="text-slate-400 hover:text-indigo-500 transition-colors"
-                aria-label="Facebook"
-              >
-                <FacebookIcon className="w-6 h-6 primary" />
-              </Link>
-              <Link
-                href="#"
-                className="text-slate-400 hover:text-indigo-500 transition-colors"
-                aria-label="LinkedIn"
-              >
-                <LinkedInIcon className="w-6 h-6 primary" />
-              </Link>
-
-               <Link
-                href="#"
-                className="text-slate-400 hover:text-indigo-500 transition-colors"
-                aria-label="Instagram"
-              >
-                <InstagramIcon className="w-6 h-6 primary" />
-              </Link>              
-               <Link
-                href="#"
-                className="text-slate-400 hover:text-indigo-500 transition-colors"
-                aria-label="Tiktok"
-              >
-                <TiktokIcon className="w-6 h-6 primary" />
-              </Link>
-                   <Link
-                href="#"
-                className="text-slate-400 hover:text-indigo-500 transition-colors"
-                aria-label="Youtube"
-              >
-                <YoutubeIcon className="w-6 h-6 primary" />
-              </Link>
-                <Link
-                href="#"
-                className="text-slate-400 hover:text-indigo-500 transition-colors"
-                aria-label="Youtube"
-              >
-                <SnapchatIcon className="w-6 h-6 primary" />
-              </Link>
-            </div>
+            <FooterSocialMediaIcon />
           </div>
 
           <div className="grid sm:grid-cols-3 gap-8">
             <div
               data-motion="column"
-              styles="opacity: 1; transform: translateY(0px); filter: blur(0px);"
+              style={{
+                opacity: 1,
+                transform: "translateY(0px)",
+                filter: "blur(0px)",
+              }}
             >
               <h4 className="text-slate-900 dark:text-white font-semibold mb-5">
                 Studio
@@ -169,7 +133,11 @@ export default function Footer() {
             </div>
             <div
               data-motion="column"
-              styles="opacity: 1; transform: translateY(0px); filter: blur(0px);"
+              style={{
+                opacity: 1,
+                transform: "translateY(0px)",
+                filter: "blur(0px)",
+              }}
             >
               <h4 className="text-slate-900 dark:text-white font-semibold mb-5">
                 Services
@@ -211,7 +179,11 @@ export default function Footer() {
             </div>
             <div
               data-motion="column"
-              styles="opacity: 1; transform: translateY(0px); filter: blur(0px);"
+              style={{
+                opacity: 1,
+                transform: "translateY(0px)",
+                filter: "blur(0px)",
+              }}
             >
               <h4 className="text-slate-900 dark:text-white font-semibold mb-5">
                 Resources
@@ -257,7 +229,11 @@ export default function Footer() {
         <div
           data-motion="bottom"
           className="py-8 flex flex-col sm:flex-row items-center justify-center gap-6 text-center"
-          styles="opacity: 1; transform: translateY(0px); filter: blur(0px);"
+          style={{
+            opacity: 1,
+            transform: "translateY(0px)",
+            filter: "blur(0px)",
+          }}
         >
           <p className="text-slate-500 text-sm">
             © 2026 Pixel Studio. All rights reserved.

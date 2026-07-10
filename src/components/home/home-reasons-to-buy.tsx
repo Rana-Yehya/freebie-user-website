@@ -13,10 +13,7 @@ export default function HomeReasonsToBuy() {
   }, []);
 
   return (
-    <section
-      id="_blogdetails_fullwidth_v6_001"
-      className="py-20 sm:py-24 bg-white"
-    >
+    <section className="py-20 sm:py-24 bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid lg:grid-cols-12 gap-8 items-center">
           {/* <!-- Image --> */}
@@ -47,20 +44,20 @@ export default function HomeReasonsToBuy() {
             className="relative  lg:col-span-5 relative rounded-3xl overflow-hidden"
             style={{ opacity: 1, transform: "scale(1)", filter: "blur(0px)" }}
           >
-          <div className="relative w-full h-80 lg:h-[500px] overflow-hidden">
-      {images.map((src, index) => (
-        <img
-          key={index}
-          src={src}
-          alt={`Slide ${index}`}
-          className={`
+            <div className="relative w-full h-80 lg:h-[500px] overflow-hidden">
+              {images.map((src, index) => (
+                <img
+                  key={index}
+                  src={src}
+                  alt={`Slide ${index}`}
+                  className={`
             absolute top-0 left-0 w-full h-full object-cover
             transition-opacity duration-1000 ease-in-out
-            ${index === currentIndex ? 'opacity-100 z-10' : 'opacity-0 z-0'}
+            ${index === currentIndex ? "opacity-100 z-10" : "opacity-0 z-0"}
           `}
-        />
-      ))}
-    </div>
+                />
+              ))}
+            </div>
 
             {/* <div className="absolute bottom-6 left-6 right-6 p-5 bg-white/90 dark:bg-neutral-900/90 backdrop-blur-xs rounded-2xl">
             <div className="flex items-center justify-between">

@@ -17,10 +17,7 @@ export default async function ProductDetails({
   const productId = (await params).productId;
 
   return (
-    <section
-      id="_product_asymmetric_split_v6_005"
-      className="py-20 sm:py-24 bg-white"
-    >
+    <section className="py-20 sm:py-24 bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* <!-- Asymmetric 8/4 Split --> */}
         <div className="grid lg:grid-cols-12 gap-8 lg:gap-12">

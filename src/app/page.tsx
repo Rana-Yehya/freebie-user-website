@@ -1,7 +1,7 @@
 "use client";
 import HomeMainImage from "@/components/home/home-main-image";
-import HomeReasonsToBuy from "@/components/home-reasons-to-buy";
-import ProductCard from "@/components/product-card";
+import HomeReasonsToBuy from "@/components/home/home-reasons-to-buy";
+import ProductCard from "@/components/product/product-card";
 import { useEffect, useRef, useState } from "react";
 import FAQMenuHome from "@/components/home/faq-menu-home";
 
