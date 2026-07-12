@@ -56,7 +56,7 @@ export default function Header() {
               </li>
               <li>
                 <HeaderNavItem
-                  href="/about"
+                  href="/about-us"
                   title="About"
                   scrolled={scrolled}
                 />
