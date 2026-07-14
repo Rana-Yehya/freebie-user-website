@@ -1,6 +1,11 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+  experimental: {
+    serverActions: {
+      allowedOrigins: ["*"], //process.env.API_URL ?? '*.localhost:3000'
+    },
+  },
   turbopack: {
     rules: {
       '*.svg': {
