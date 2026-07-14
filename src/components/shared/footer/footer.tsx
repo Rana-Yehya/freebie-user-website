@@ -100,7 +100,7 @@ export default function Footer() {
                 <li>
                   <Link
                     href="#"
-                    className="text-slate-600 dark:text-neutral-400 hover:text-indigo-500 transition-colors"
+                    className="text-slate-600 dark:text-neutral-400 hover:text-honey transition-colors"
                   >
                     About Us
                   </Link>
@@ -108,7 +108,7 @@ export default function Footer() {
                 <li>
                   <Link
                     href="#"
-                    className="text-slate-600 dark:text-neutral-400 hover:text-indigo-500 transition-colors"
+                    className="text-slate-600 dark:text-neutral-400 hover:text-honey transition-colors"
                   >
                     Our Work
                   </Link>
@@ -116,7 +116,7 @@ export default function Footer() {
                 <li>
                   <Link
                     href="#"
-                    className="text-slate-600 dark:text-neutral-400 hover:text-indigo-500 transition-colors"
+                    className="text-slate-600 dark:text-neutral-400 hover:text-honey transition-colors"
                   >
                     Careers
                   </Link>
@@ -124,7 +124,7 @@ export default function Footer() {
                 <li>
                   <Link
                     href="#"
-                    className="text-slate-600 dark:text-neutral-400 hover:text-indigo-500 transition-colors"
+                    className="text-slate-600 dark:text-neutral-400 hover:text-honey transition-colors"
                   >
                     Press Kit
                   </Link>
@@ -146,7 +146,7 @@ export default function Footer() {
                 <li>
                   <Link
                     href="#"
-                    className="text-slate-600 dark:text-neutral-400 hover:text-indigo-500 transition-colors"
+                    className="text-slate-600 dark:text-neutral-400 hover:text-honey transition-colors"
                   >
                     Brand Design
                   </Link>
@@ -154,7 +154,7 @@ export default function Footer() {
                 <li>
                   <Link
                     href="#"
-                    className="text-slate-600 dark:text-neutral-400 hover:text-indigo-500 transition-colors"
+                    className="text-slate-600 dark:text-neutral-400 hover:text-honey transition-colors"
                   >
                     Web Development
                   </Link>
@@ -162,7 +162,7 @@ export default function Footer() {
                 <li>
                   <Link
                     href="#"
-                    className="text-slate-600 dark:text-neutral-400 hover:text-indigo-500 transition-colors"
+                    className="text-slate-600 dark:text-neutral-400 hover:text-honey transition-colors"
                   >
                     Motion Graphics
                   </Link>
@@ -170,7 +170,7 @@ export default function Footer() {
                 <li>
                   <Link
                     href="#"
-                    className="text-slate-600 dark:text-neutral-400 hover:text-indigo-500 transition-colors"
+                    className="text-slate-600 dark:text-neutral-400 hover:text-honey transition-colors"
                   >
                     Photography
                   </Link>
@@ -192,7 +192,7 @@ export default function Footer() {
                 <li>
                   <Link
                     href="#"
-                    className="text-slate-600 dark:text-neutral-400 hover:text-indigo-500 transition-colors"
+                    className="text-slate-600 dark:text-neutral-400 hover:text-honey transition-colors"
                   >
                     Blog
                   </Link>
@@ -200,7 +200,7 @@ export default function Footer() {
                 <li>
                   <Link
                     href="#"
-                    className="text-slate-600 dark:text-neutral-400 hover:text-indigo-500 transition-colors"
+                    className="text-slate-600 dark:text-neutral-400 hover:text-honey transition-colors"
                   >
                     Case Studies
                   </Link>
@@ -208,7 +208,7 @@ export default function Footer() {
                 <li>
                   <Link
                     href="#"
-                    className="text-slate-600 dark:text-neutral-400 hover:text-indigo-500 transition-colors"
+                    className="text-slate-600 dark:text-neutral-400 hover:text-honey transition-colors"
                   >
                     Free Assets
                   </Link>
@@ -216,7 +216,7 @@ export default function Footer() {
                 <li>
                   <Link
                     href="#"
-                    className="text-slate-600 dark:text-neutral-400 hover:text-indigo-500 transition-colors"
+                    className="text-slate-600 dark:text-neutral-400 hover:text-honey transition-colors"
                   >
                     Newsletter
                   </Link>
@@ -241,19 +241,19 @@ export default function Footer() {
           {/*  <div className="flex items-center gap-6">
            <Link
               href="#"
-              className="text-slate-500 hover:text-indigo-500 text-sm transition-colors"
+              className="text-slate-500 hover:text-honey text-sm transition-colors"
             >
               Terms
             </Link>
             <Link
               href="#"
-              className="text-slate-500 hover:text-indigo-500 text-sm transition-colors"
+              className="text-slate-500 hover:text-honey text-sm transition-colors"
             >
               Privacy
             </Link>
             <Link
               href="#"
-              className="text-slate-500 hover:text-indigo-500 text-sm transition-colors"
+              className="text-slate-500 hover:text-honey text-sm transition-colors"
             >
               Cookies
             </Link>

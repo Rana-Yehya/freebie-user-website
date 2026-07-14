@@ -1,4 +1,4 @@
-const sidebarItems = [
+export const sidebarItems = [
     {
         name: "Home",
         href: "/",
