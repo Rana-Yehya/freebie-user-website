@@ -13,7 +13,7 @@ export default function HomeReasonsToBuy() {
   }, []);
 
   return (
-    <section className="py-20 sm:py-24 bg-white">
+    <section className="py-16 bg-white border-t border-slate-100">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid lg:grid-cols-12 gap-8 items-center">
           {/* <!-- Image --> */}

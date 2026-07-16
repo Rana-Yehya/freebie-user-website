@@ -52,39 +52,40 @@ div::-webkit-scrollbar {
 }
 .footer-icon {
   /* Default Color (X) */
-  filter: invert(49%) sepia(2%) saturate(4517%) hue-rotate(177deg) brightness(91%) contrast(98%);
+  filter: invert(49%) sepia(2%) saturate(4517%) hue-rotate(177deg)
+    brightness(91%) contrast(98%);
   /* transition: filter 0.3s ease; */
 }
 
 /* Hover Color (Y) - attached to the SAME class */
 .footer-icon:hover {
   /* Your desired hover filter values here */
-  filter:invert(59%) sepia(94%) saturate(1359%) hue-rotate(2deg) brightness(107%) contrast(92%);
+  filter: invert(59%) sepia(94%) saturate(1359%) hue-rotate(2deg)
+    brightness(107%) contrast(92%);
 }
-
-
-
 
 .contact-icon {
   /* Default Color (X) */
-  filter: invert(66%) sepia(17%) saturate(347%) hue-rotate(175deg) brightness(95%) contrast(90%);
+  filter: invert(66%) sepia(17%) saturate(347%) hue-rotate(175deg)
+    brightness(95%) contrast(90%);
   /* transition: filter 0.3s ease; */
 }
 
 /* Hover Color (Y) - attached to the SAME class */
 .contact-icon:hover {
   /* Your desired hover filter values here */
-  filter:invert(59%) sepia(94%) saturate(1359%) hue-rotate(2deg) brightness(107%) contrast(92%);
+  filter: invert(59%) sepia(94%) saturate(1359%) hue-rotate(2deg)
+    brightness(107%) contrast(92%);
 }
 
- @keyframes slideIn {
-          from {
-            transform: translateX(100%);
-          }
-          to {
-            transform: translateX(0);
-          }
-        }
-        .animate-slide-in {
-          animation: slideIn 0.3s ease-out;
-        }
+@keyframes slideIn {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+.animate-slide-in {
+  animation: slideIn 0.3s ease-out;
+}

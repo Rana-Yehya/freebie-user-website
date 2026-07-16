@@ -88,14 +88,14 @@ export function ContactUsSocialMediaIcon() {
       <SocialMediaIcon
         href="#"
         label="X"
-        className="flex items-center bg-slate-200 w-8 h-8 p-2 rounded-full focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500"
+        className="flex items-center bg-slate-200 w-8 h-8 p-2 rounded-full focus:outline-none focus-visible:ring-2"
       >
         <TwitterIcon className="w-6 h-6 contact-icon" />
       </SocialMediaIcon>
       <SocialMediaIcon
         href="#"
         label="Facebook"
-        className="flex items-center bg-slate-200 w-8 h-8 p-2 rounded-full focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500"
+        className="flex items-center bg-slate-200 w-8 h-8 p-2 rounded-full focus:outline-none focus-visible:ring-2"
       >
         <FacebookIcon className="w-6 h-6 contact-icon" />
       </SocialMediaIcon>
@@ -103,14 +103,14 @@ export function ContactUsSocialMediaIcon() {
       <SocialMediaIcon
         href="#"
         label="LinkedIn"
-        className="flex items-center bg-slate-200 w-8 h-8 p-2 rounded-full focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500"
+        className="flex items-center bg-slate-200 w-8 h-8 p-2 rounded-full focus:outline-none focus-visible:ring-2"
       >
         <LinkedInIcon className="w-6 h-6 contact-icon" />
       </SocialMediaIcon>
       <SocialMediaIcon
         href="#"
         label="Instagram"
-        className="flex items-center bg-slate-200 w-8 h-8 p-2 rounded-full focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500"
+        className="flex items-center bg-slate-200 w-8 h-8 p-2 rounded-full focus:outline-none focus-visible:ring-2"
       >
         <InstagramIcon className="w-6 h-6 contact-icon" />
       </SocialMediaIcon>
@@ -118,21 +118,21 @@ export function ContactUsSocialMediaIcon() {
       <SocialMediaIcon
         href="#"
         label="Tiktok"
-        className="flex items-center bg-slate-200 w-8 h-8 p-2 rounded-full focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500"
+        className="flex items-center bg-slate-200 w-8 h-8 p-2 rounded-full focus:outline-none focus-visible:ring-2"
       >
         <TiktokIcon className="w-6 h-6 contact-icon" />
       </SocialMediaIcon>
       <SocialMediaIcon
         href="#"
         label="Youtube"
-        className="flex items-center bg-slate-200 w-8 h-8 p-2 rounded-full focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500"
+        className="flex items-center bg-slate-200 w-8 h-8 p-2 rounded-full focus:outline-none focus-visible:ring-2"
       >
         <YoutubeIcon className="w-6 h-6 contact-icon" />
       </SocialMediaIcon>
       <SocialMediaIcon
         href="#"
         label="Snapchat"
-        className="flex items-center bg-slate-200 w-8 h-8 p-2 rounded-full focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500"
+        className="flex items-center bg-slate-200 w-8 h-8 p-2 rounded-full focus:outline-none focus-visible:ring-2"
       >
         <SnapchatIcon className="w-6 h-6 contact-icon" />
       </SocialMediaIcon>

@@ -1,10 +1,12 @@
 "use client";
 import Link from "next/link";
-import Image from "next/image";
+import { useRouter } from "next/navigation";
 import CustomButton from "@/components/ui/custom-button";
 import { FooterSocialMediaIcon } from "./social-media-icon";
 
 export default function Footer() {
+  const router = useRouter();
+
   return (
     <footer
       id="_footer_cta_links_v6_001"
@@ -70,7 +72,9 @@ export default function Footer() {
               }}
             >
               <CustomButton
-                onClick={() => {}}
+                onClick={() => {
+                  router.push("/contact-us");
+                }}
                 title="Get in Touch"
                 className="w-fit bg-primary hover:border-neutral-200 hover:bg-[#f5a80a] hover:text-white"
               />
