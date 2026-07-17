@@ -1,6 +1,6 @@
 import axios from "axios";
 import ProductCard from "../../../product/_components/product-card";
-import { Product, ProductItem } from "../../../../../types/product";
+import { Products, ProductItem } from "../../../../../types/product";
 
 type User = {
   id: number;
@@ -11,7 +11,7 @@ type User = {
 };
 export default async function ProductDisplay() {
   try {
-    const response = await axios.get<Product>(
+    const response = await axios.get<Products>(
       `${process.env.NEXT_PUBLIC_API_URL}/api/v1/product/search?tag=featured`,
 
       {

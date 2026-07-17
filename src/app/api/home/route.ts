@@ -1,6 +1,6 @@
 import axios, { AxiosError, isAxiosError } from "axios";
 import { NextResponse } from "next/server";
-import { Product } from "../../../types/product";
+import { Products } from "../../../types/product";
 
 
 export async function POST(request: Request) {
@@ -8,7 +8,7 @@ export async function POST(request: Request) {
         const body = await request.json();
         console.log("Request body:", body);
 
-        const response = await axios.get<Product>(
+        const response = await axios.get<Products>(
             `${process.env.NEXT_PUBLIC_API_URL}/api/v1/inbox`,
             {
                 timeout: 10000,
