@@ -2,14 +2,17 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import HeaderNavItem from "./header-nav-item";
-import CustomButton from "@/components/ui/custom-button";
-import { useRouter } from "next/navigation";
 import SideMenu from "./side-menu";
+import HeaderButtons from "./header-buttons";
+import Image from "next/image";
 
-export default function Header() {
+export default function Header({
+  isAuthenticated,
+}: {
+  isAuthenticated: boolean;
+}) {
   const [scrolled, setScrolled] = useState(false);
   const [menuClicked, setMenuClicked] = useState(false);
-  const router = useRouter();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -37,22 +40,23 @@ export default function Header() {
         <div className="max-w-7xl mx-auto pt-2.5 pl-5 pr-5 pb-2.5">
           <div className="flex items-center justify-between gap-x-4 lg:grid lg:grid-cols-[1fr_auto_1fr] lg:justify-stretch lg:rounded-br-[1.375rem] lg:rounded-bl-[1.375rem]">
             {/* Logo */}
-            <div>
+            <div className="flex-shrink-0">
               <Link
                 href="/"
                 title="Home"
-                className="inline-flex bg-white items-center justify-center transition-all focus:shadow-[0_0px_0px_2px_rgba(15,23,42,0.25),0_2px_10px_0px_rgba(0,0,0,0.05)] rounded-full hover:bg-neutral-100 p-0.5"
+                className="flex items-center justify-center w-10 h-10 rounded-full bg-white shadow-sm hover:shadow-md transition-all duration-300 hover:scale-105"
               >
                 <img
-                  className="h-auto w-auto max-h-8 max-w-8"
                   src="/logo.png"
                   alt="Logo"
+                  className="h-auto w-auto max-h-8 max-w-8 object-contain"
                 />
               </Link>
             </div>
 
-            <nav className="hidden lg:block">
-              <ul className="flex items-center">
+            {/* Navigation - Centered */}
+            <nav className="hidden lg:flex items-center justify-center flex-1">
+              <ul className="flex items-center gap-1">
                 <li>
                   <HeaderNavItem href="/" title="Home" scrolled={scrolled} />
                 </li>
@@ -65,7 +69,7 @@ export default function Header() {
                 </li>
                 <li>
                   <HeaderNavItem
-                    href="/products"
+                    href="/product/search"
                     title="Products"
                     scrolled={scrolled}
                   />
@@ -80,31 +84,74 @@ export default function Header() {
               </ul>
             </nav>
 
+            {/* Right Section */}
             <div className="flex items-center gap-x-10 justify-self-end">
-              <span className="h-4 w-[1px] bg-neutral-300"></span>
+              <span className="hidden lg:block h-4 w-[1px] bg-neutral-300"></span>
+
               <div className="flex items-center gap-x-3 lg:gap-x-2">
-                <CustomButton
-                  onClick={() => router.push("/login")}
-                  title="Log in"
-                  className={`bg-transparent text-background hidden lg:flex text-sm font-medium transition-all text-neutral-600 hover:text-[#fbb72c] relative after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-[#fbb72c] after:-translate-x-1/2 hover:after:w-full after:left-1/2 after:transition-all px-3 py-2 text-sm font-medium transition hover:text-primary ${
-                    scrolled ? "text-[#fbb72c]" : "text-honey"
-                  }`}
-                />
-                <CustomButton
-                  onClick={() => router.push("/register")}
-                  title="Register"
-                  className="w-fit bg-primary hover:border-neutral-200 hover:bg-honey hover:text-white"
-                />
+                {isAuthenticated ? (
+                  <>
+                    {/* Cart Button */}
+                    <Link
+                      href="/cart"
+                      className="relative p-2 rounded-full hover:bg-slate-100 transition-all duration-200 group"
+                      aria-label="Shopping cart"
+                    >
+                      <img
+                        src="/cart.svg"
+                        alt="Cart"
+                        width={20}
+                        height={20}
+                        className="opacity-70 group-hover:opacity-100 transition-opacity"
+                        style={{
+                          filter:
+                            "invert(36%) sepia(3%) saturate(12%) hue-rotate(321deg) brightness(89%) contrast(98%)",
+                        }}
+                      />
+                      <span className="absolute -top-0.5 -right-0.5 w-4 h-4 bg-primary text-white text-[10px] font-bold rounded-full flex items-center justify-center">
+                        0
+                      </span>
+                    </Link>
+
+                    {/* Logout Button */}
+                    <button
+                      className="p-2 rounded-full hover:bg-slate-100 transition-all duration-200 group"
+                      aria-label="Logout"
+                      onClick={() => {
+                        // Handle logout
+                      }}
+                    >
+                      <img
+                        src="/logout.svg"
+                        alt="Logout"
+                        width={20}
+                        height={20}
+                        className="opacity-70 group-hover:opacity-100 transition-opacity"
+                        style={{
+                          filter:
+                            "invert(36%) sepia(3%) saturate(12%) hue-rotate(321deg) brightness(89%) contrast(98%)",
+                        }}
+                      />
+                    </button>
+                  </>
+                ) : (
+                  <HeaderButtons scrolled={scrolled} />
+                )}
+
+                {/* Mobile Menu Button */}
                 <button
                   type="button"
                   aria-label="Open menu"
-                  className="lg:hidden"
+                  className="lg:hidden p-2 rounded-full hover:bg-slate-100 transition-all duration-200"
                   title="Open menu"
                   onClick={handleMenuClick}
                 >
                   <img
                     src="/menu.svg"
-                    // className={`h-8 w-8 ${scrolled ? "text-[#fbb72c]" : "text-black"}`}
+                    alt="Menu"
+                    width={24}
+                    height={24}
+                    className="transition-opacity"
                     style={{
                       filter: scrolled
                         ? "invert(72%) sepia(34%) saturate(907%) hue-rotate(354deg) brightness(98%) contrast(100%)"

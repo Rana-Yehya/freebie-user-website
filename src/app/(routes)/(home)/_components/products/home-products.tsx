@@ -19,7 +19,7 @@ export default function HomeProducts() {
 
         <ScrollableContainer>
           <Suspense fallback={<div>Loading...</div>}>
-            <ProductDisplay />
+            <ProductDisplay tag="featured" limit={5} />
           </Suspense>
         </ScrollableContainer>
       </div>

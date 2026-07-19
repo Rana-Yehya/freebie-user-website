@@ -4,14 +4,18 @@ export default function PriceRange({
   maxVal,
   onMinChange,
   onMaxChange,
+  minLimit = 0,
+  maxLimit = 1000,
 }: {
   minVal: number;
   maxVal: number;
   onMinChange: (value: number) => void;
   onMaxChange: (value: number) => void;
+  minLimit?: number;
+  maxLimit?: number;
 }) {
-  const minPercent = (minVal / 1000) * 100;
-  const maxPercent = (maxVal / 1000) * 100;
+  const minPercent = ((minVal - minLimit) / (maxLimit - minLimit)) * 100;
+  const maxPercent = ((maxVal - minLimit) / (maxLimit - minLimit)) * 100;
 
   return (
     <div className="pt-2">
@@ -28,8 +32,8 @@ export default function PriceRange({
 
         <input
           type="range"
-          min="0"
-          max="1000"
+          min={minLimit}
+          max={maxLimit}
           value={minVal}
           className="absolute top-0 w-full h-1 bg-transparent appearance-none cursor-pointer focus:outline-none"
           onChange={(e) => {
@@ -40,8 +44,8 @@ export default function PriceRange({
 
         <input
           type="range"
-          min="0"
-          max="1000"
+          min={minLimit}
+          max={maxLimit}
           value={maxVal}
           className="absolute top-0 w-full h-1 bg-transparent appearance-none cursor-pointer focus:outline-none"
           onChange={(e) => {

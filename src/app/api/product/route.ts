@@ -1,16 +1,20 @@
 import axios, { AxiosError, isAxiosError } from "axios";
 import { NextResponse } from "next/server";
-import { Info } from "../../../types/info";
+import { ProductItem, Products } from "../../../types/product";
 
 
-export async function POST(request: Request) {
+export async function GET(request: Request) {
     try {
-        const body = await request.json();
+        const { searchParams } = new URL(request.url);
+        const queryParams = Object.fromEntries(searchParams.entries());
 
-        const response = await axios.post<Info>(
-            `${process.env.NEXT_PUBLIC_API_URL}/api/v1/inbox`,
-            { ...body },
+        const response = await axios.get<Products>(
+            `${process.env.NEXT_PUBLIC_API_URL}/api/v1/product/search`,
+
             {
+                params: {
+                    ...queryParams
+                },
                 timeout: 10000,
                 headers: {
                     'Content-Type': 'application/json',

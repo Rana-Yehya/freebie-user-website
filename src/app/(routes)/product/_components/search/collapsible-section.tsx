@@ -1,40 +1,78 @@
-// Collapsible section component
 "use client";
 import { useState, useRef, useEffect } from "react";
+
+interface CollapsibleSectionProps {
+  title: string;
+  id: string;
+  defaultOpen?: boolean;
+  children: React.ReactNode;
+  isOpen?: boolean;
+  onToggle?: () => void;
+}
 
 export default function CollapsibleSection({
   title,
   id,
   defaultOpen = false,
   children,
-}: {
-  title: string;
-  id: string;
-  defaultOpen?: boolean;
-  children: React.ReactNode;
-}) {
-  const [isOpen, setIsOpen] = useState(defaultOpen);
+  isOpen: externalIsOpen,
+  onToggle,
+}: CollapsibleSectionProps) {
+  const [internalIsOpen, setInternalIsOpen] = useState(defaultOpen);
+  const innerRef = useRef<HTMLDivElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
   const [height, setHeight] = useState(defaultOpen ? "auto" : "0px");
 
+  const isOpen = externalIsOpen !== undefined ? externalIsOpen : internalIsOpen;
   useEffect(() => {
     if (isOpen) {
-      const scrollHeight = contentRef?.current?.scrollHeight;
-      setHeight(`${scrollHeight}px`);
+      const timer = setTimeout(() => {
+        // Measure the innerRef instead
+        const scrollHeight = innerRef.current?.scrollHeight;
+        setHeight(`${scrollHeight}px`);
+      }, 50);
+      return () => clearTimeout(timer);
     } else {
       setHeight("0px");
     }
   }, [isOpen]);
 
+  // Use ResizeObserver to detect content height changes
+  useEffect(() => {
+    if (!innerRef.current || !isOpen) return;
+
+    const resizeObserver = new ResizeObserver(() => {
+      // Measure the innerRef instead
+      const scrollHeight = innerRef.current?.scrollHeight;
+      if (scrollHeight) {
+        setHeight(`${scrollHeight}px`);
+      }
+    });
+
+    // Observe the innerRef instead
+    resizeObserver.observe(innerRef.current);
+
+    return () => {
+      resizeObserver.disconnect();
+    };
+  }, [isOpen]);
+  const handleToggle = () => {
+    if (onToggle) {
+      onToggle();
+    } else {
+      setInternalIsOpen(!internalIsOpen);
+    }
+  };
+
   return (
-    <div className="border-b border-slate-200 py-3">
+    <div className="border-b border-slate-100 py-2">
       <button
         type="button"
-        className="header flex items-center gap-2 justify-between cursor-pointer w-full focus:outline-none"
+        className="header flex items-center gap-2 justify-between cursor-pointer w-full focus:outline-none py-1"
         aria-expanded={isOpen}
         aria-controls={`${id}-panel`}
         id={`${id}-button`}
-        onClick={() => setIsOpen((prev) => !prev)}
+        onClick={handleToggle}
       >
         <h3 className="text-slate-700 text-sm font-medium uppercase tracking-wider">
           {title}
@@ -49,10 +87,12 @@ export default function CollapsibleSection({
         ref={contentRef}
         role="region"
         aria-labelledby={`${id}-button`}
-        className="overflow-hidden transition-all duration-300"
+        className="overflow-hidden transition-all duration-300 ease-in-out"
         style={{ height }}
       >
-        <div className="pt-3 pb-1">{children}</div>
+        <div ref={innerRef} className="pt-1 pb-1">
+          {children}
+        </div>
       </div>
     </div>
   );

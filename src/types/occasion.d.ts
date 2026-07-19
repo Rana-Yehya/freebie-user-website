@@ -1,6 +1,10 @@
-import { Name } from "../app/(routes)/(home)/_components/faq/faq-question"
-
-export interface Occasion {
+export interface Occasions {
+    isSuccess?: boolean
+    message?: string
+    data?: OccasionItem[]
+    count?: number
+}
+export interface OccasionItem {
     id?: string
     name?: Name
     image?: Image

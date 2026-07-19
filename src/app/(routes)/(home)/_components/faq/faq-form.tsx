@@ -6,6 +6,8 @@ import { useRouter } from "next/navigation";
 import CustomInput from "@/components/ui/custom-input";
 import CustomTextarea from "@/components/ui/custom-textarea";
 import { Info } from "../../../../../types/info";
+import SuccessAlert from "@/components/shared/alerts/success-alert";
+import ErrorAlert from "@/components/shared/alerts/error.alert";
 
 export default function FAQForm() {
   const [phone, setPhone] = useState("");
@@ -14,13 +16,13 @@ export default function FAQForm() {
   const [description, setDescription] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const [success, setSuccess] = useState(false);
+  const [success, setSuccess] = useState<string | null>(null);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setLoading(true);
     setError(null);
-    setSuccess(false);
+    setSuccess(null);
 
     // Basic validation
     if (!name.trim()) {
@@ -57,17 +59,17 @@ export default function FAQForm() {
         }),
       });
       const data: Info = await response.json();
-      console.log("data:", data);
 
       if (!data.isSuccess) {
         throw new Error(
           data.message || "Something went wrong. Please try again.",
         );
+      } else {
+        setSuccess(data.message ?? "We'll get back to you within 24 hours.");
+        setError(null);
       }
 
       // Success
-      setSuccess(true);
-      setError(null);
 
       // Optionally redirect after delay
       // setTimeout(() => {
@@ -75,7 +77,7 @@ export default function FAQForm() {
       // }, 3000);
     } catch (err: any) {
       setError(err.message || "Failed to send message. Please try again.");
-      setSuccess(false);
+      setSuccess(null);
     } finally {
       setLoading(false);
     }
@@ -93,51 +95,10 @@ export default function FAQForm() {
       </div>
 
       {/* Success Message */}
-      {success && (
-        <div className="mb-6 p-4 bg-green-50 border border-green-200 rounded-xl flex items-start gap-3">
-          <svg
-            className="w-5 h-5 text-green-500 mt-0.5 flex-shrink-0"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth="2"
-              d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
-            />
-          </svg>
-          <div>
-            <p className="text-sm font-medium text-green-800">
-              Message sent successfully!
-            </p>
-            <p className="text-xs text-green-600 mt-0.5">
-              We'll get back to you within 24 hours.
-            </p>
-          </div>
-        </div>
-      )}
+      <SuccessAlert success={success} />
 
       {/* Error Message */}
-      {error && (
-        <div className="mb-6 p-4 bg-red-50 border border-red-200 rounded-xl flex items-start gap-3">
-          <svg
-            className="w-5 h-5 text-red-500 mt-0.5 flex-shrink-0"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth="2"
-              d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-            />
-          </svg>
-          <p className="text-sm text-red-600">{error}</p>
-        </div>
-      )}
+      <ErrorAlert error={error} />
 
       <form onSubmit={handleSubmit} className="space-y-5">
         <div>

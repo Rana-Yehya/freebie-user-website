@@ -6,7 +6,6 @@ import { Products } from "../../../types/product";
 export async function POST(request: Request) {
     try {
         const body = await request.json();
-        console.log("Request body:", body);
 
         const response = await axios.get<Products>(
             `${process.env.NEXT_PUBLIC_API_URL}/api/v1/inbox`,
@@ -18,7 +17,6 @@ export async function POST(request: Request) {
             }
         );
 
-        console.log("API Response:", response.data);
 
         // Return success response
         return NextResponse.json(response.data, { status: 200 });
@@ -26,7 +24,6 @@ export async function POST(request: Request) {
     } catch (error: unknown) {
 
         if (isAxiosError(error)) {
-            console.log(error?.response?.data)
             // console.error("API Error:", error);
             return NextResponse.json(error?.response?.data, { status: error.status });
         }

@@ -1,54 +1,100 @@
-import { Entry } from "./filter-content";
+"use client";
+
+import { useRef, useEffect } from "react";
 
 interface CheckoutBoxItemProps {
-  item: Entry;
+  htmlFor?: string;
+  id?: string;
+  name?: string;
+  value: string;
   checked: boolean;
+  label: string;
   onChange: (value: string) => void;
+  className?: string;
+  indeterminate?: boolean;
 }
 
 // Custom checkbox item
 export default function CheckboxItem({
-  item,
-  checked,
+  htmlFor,
+  id,
+  name,
+  value,
+  label,
+  checked = false,
   onChange,
+  className = "",
+  indeterminate = false,
 }: CheckoutBoxItemProps) {
+  const checkboxRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    if (checkboxRef.current) {
+      checkboxRef.current.indeterminate = indeterminate;
+    }
+  }, [indeterminate]);
+
   return (
-    <li className="py-1.5">
+    <div className="py-0.5">
       <label
-        htmlFor={item.id}
-        className="inline-flex items-center gap-3 group cursor-pointer"
+        htmlFor={htmlFor || id}
+        className="inline-flex items-center gap-2.5 group cursor-pointer w-full hover:bg-slate-50 px-2 py-1 rounded-md transition-colors"
       >
         <input
+          ref={checkboxRef}
           type="checkbox"
           className="sr-only"
-          id={item.id}
-          name={item.id.startsWith("brand") ? "brand" : "category"}
-          value={item.value}
+          id={id}
+          name={name || id}
+          value={value}
           checked={checked}
-          onChange={() => onChange(item.value)}
+          onChange={() => {
+            onChange(value);
+          }}
         />
         <span
           className={`flex h-4 w-4 shrink-0 items-center justify-center rounded border transition-colors ${
-            checked
-              ? "bg-blue-600 border-blue-600"
+            checked || indeterminate
+              ? "bg-honey border-honey"
               : "bg-white border-slate-300"
-          } group-focus-within:ring-2 group-focus-within:ring-blue-500`}
+          } group-focus-within:ring-2 group-focus-within:ring-honey`}
           aria-hidden="true"
         >
           {checked && (
             <svg
               className="w-3 h-3 text-white"
-              viewBox="0 0 12 10"
               fill="none"
               stroke="currentColor"
-              strokeWidth="2"
+              viewBox="0 0 12 10"
             >
-              <path d="M1 5l3 3 7-7" />
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
+                d="M1 5l3 3 7-7"
+              />
+            </svg>
+          )}
+          {indeterminate && !checked && (
+            <svg
+              className="w-3 h-3 text-white"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 12 2"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
+                d="M1 1h10"
+              />
             </svg>
           )}
         </span>
-        <span className="text-sm text-slate-700 capitalize">{item.label}</span>
+        <span className={`text-sm text-slate-700 capitalize ${className}`}>
+          {label}
+        </span>
       </label>
-    </li>
+    </div>
   );
 }

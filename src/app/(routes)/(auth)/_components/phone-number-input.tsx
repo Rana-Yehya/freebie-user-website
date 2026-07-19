@@ -75,7 +75,6 @@ export default function PhoneNumberInput({
   };
 
   const handlePhoneChange = (value: string) => {
-    console.log(value);
     const formatted = formatPhoneNumber(value);
     setPhoneNumber(formatted);
     if (onChange) {

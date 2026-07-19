@@ -1,14 +1,22 @@
 import axios, { AxiosError, isAxiosError } from "axios";
 import { NextResponse } from "next/server";
-import { Info } from "../../../types/info";
+import { Login } from "../../../../types/login";
+import { cookies } from "next/headers";
+import { jwtDecode } from 'jwt-decode';
 
-
+/*
+{
+    "password": "password",
+    "email": "emailDASDmail@email.com"
+}   
+*/
 export async function POST(request: Request) {
+    const cookieStore = await cookies();
     try {
         const body = await request.json();
 
-        const response = await axios.post<Info>(
-            `${process.env.NEXT_PUBLIC_API_URL}/api/v1/inbox`,
+        const response = await axios.post<Login>(
+            `${process.env.NEXT_PUBLIC_API_URL}/api/v1/auth/client/login`,
             { ...body },
             {
                 timeout: 10000,
@@ -18,12 +26,21 @@ export async function POST(request: Request) {
             }
         );
 
-
+        if (response.data.isSuccess == true && response.data.accessToken) {
+            const decoded = jwtDecode(response.data.accessToken);
+            cookieStore.set("token", response.data.accessToken, {
+                path: "/",
+                // expires: Date.now() + Date().,
+                httpOnly: true,
+                sameSite: "lax",
+                maxAge: decoded.exp,
+                secure: process.env.NODE_ENV === "production"
+            });
+        }
         // Return success response
         return NextResponse.json({
             isSuccess: true,
             message: response.data.message || "Message sent successfully!",
-            data: response.data,
         }, { status: 200 });
 
     } catch (error: unknown) {

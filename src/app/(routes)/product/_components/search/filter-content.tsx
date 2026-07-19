@@ -1,125 +1,225 @@
-import { Dispatch, SetStateAction } from "react";
+// FilterContent.tsx
+import { Dispatch, SetStateAction, useState, useEffect } from "react";
 import CollapsibleSection from "./collapsible-section";
-import CheckboxItem from "./checkbox-item";
 import PriceRange from "./price-range";
 import StarRating from "./star-rating";
-
-// Filter Sidebar Content (reused in both desktop and drawer)
-export type Entry = {
-  id: string;
-  label: string;
-  value: string;
-};
-
-const CATEGORIES: Entry[] = [
-  { id: "electronics", label: "electronics", value: "electronics" },
-  { id: "jewelery", label: "jewelery", value: "jewelery" },
-  { id: "mens-clothing", label: "men's clothing", value: "men's clothing" },
-  {
-    id: "womens-clothing",
-    label: "women's clothing",
-    value: "women's clothing",
-  },
-];
-
-const BRANDS: Entry[] = [
-  { id: "brand-zara", label: "Zara", value: "Zara" },
-  { id: "brand-hm", label: "H&M", value: "H&M" },
-  { id: "brand-uniqlo", label: "Uniqlo", value: "Uniqlo" },
-  { id: "brand-levis", label: "Levi's", value: "Levi's" },
-  { id: "brand-nike", label: "Nike", value: "Nike" },
-  { id: "brand-adidas", label: "Adidas", value: "Adidas" },
-  { id: "brand-puma", label: "Puma", value: "Puma" },
-  { id: "brand-tommy", label: "Tommy Hilfiger", value: "Tommy Hilfiger" },
-];
-
-const SIZES = ["XS", "S", "M", "L", "XL", "XXL", "XXXL", "4XL"];
-
-export type Color = {
-  label: string;
-  className: string;
-};
-
-const COLORS = [
-  { label: "Blue", className: "bg-blue-700" },
-  { label: "Purple", className: "bg-purple-700" },
-  { label: "Pink", className: "bg-pink-700" },
-  { label: "Orange", className: "bg-orange-700" },
-  { label: "Red", className: "bg-red-700" },
-  { label: "Yellow", className: "bg-yellow-700" },
-  { label: "Black", className: "bg-black" },
-  { label: "Gray", className: "bg-gray-700" },
-];
+import { CategoryItem, SubcategoryItem } from "../../../../../types/category";
+import { OccasionItem } from "../../../../../types/occasion";
+import MultiSelectTree from "./multi-level-checkbox-item";
+import CustomButton from "@/components/ui/custom-button";
 
 export default function FilterContent({
+  categories = [],
+  occasions = [],
+  colors = [],
   clearAll,
   selectedCategories,
+  selectedOccasions,
   setSelectedCategories,
+  setSelectedOccasions,
+  applyChanges,
   minPrice,
   maxPrice,
   setMinPrice,
   setMaxPrice,
+  minPriceLimit = 0,
+  maxPriceLimit = 750,
+  selectedSubcategories = [],
+  setSelectedSubcategories,
 }: {
+  categories: CategoryItem[];
+  occasions: OccasionItem[];
+  colors: string[];
   clearAll: () => void;
-  selectedCategories: Entry[];
-  setSelectedCategories: Dispatch<SetStateAction<Entry[]>>;
+  applyChanges: () => void;
+  selectedCategories: CategoryItem[];
+  selectedOccasions: OccasionItem[];
+  setSelectedCategories: Dispatch<SetStateAction<CategoryItem[]>>;
+  setSelectedOccasions: Dispatch<SetStateAction<OccasionItem[]>>;
   minPrice: number;
   maxPrice: number;
   setMinPrice: Dispatch<SetStateAction<number>>;
   setMaxPrice: Dispatch<SetStateAction<number>>;
+  minPriceLimit?: number;
+  maxPriceLimit?: number;
+  selectedSubcategories?: SubcategoryItem[];
+  setSelectedSubcategories?: Dispatch<SetStateAction<SubcategoryItem[]>>;
 }) {
+  const [expandedSections, setExpandedSections] = useState<Set<string>>(
+    new Set(["category"]),
+  );
+
+  // Get initial checked values from selected categories and subcategories
+  const getInitialChecked = (): string[] => {
+    const checked: string[] = [];
+
+    // Add selected category IDs
+    selectedCategories.forEach((cat) => {
+      if (cat.id) checked.push(cat.id);
+    });
+
+    // Add selected subcategory IDs
+    selectedSubcategories?.forEach((sub) => {
+      if (sub.id) checked.push(sub.id);
+    });
+
+    return checked;
+  };
+
+  const [treeChecked, setTreeChecked] = useState<string[]>(getInitialChecked());
+  const [treeExpanded, setTreeExpanded] = useState<string[]>([
+    categories[0]?.id || "",
+  ]);
+
+  // Update tree checked when external selection changes
+  useEffect(() => {
+    const newChecked = getInitialChecked();
+    setTreeChecked(newChecked);
+  }, [selectedCategories, selectedSubcategories]);
+
+  const handleTreeCheck = (checkedValues: string[]) => {
+    setTreeChecked(checkedValues);
+
+    // Extract selected categories and subcategories from checked values
+    const newSelectedCategories: CategoryItem[] = [];
+    const newSelectedSubcategories: SubcategoryItem[] = [];
+
+    categories.forEach((category) => {
+      // Check if category is selected
+      if (checkedValues.includes(category.id ?? "")) {
+        newSelectedCategories.push(category);
+      }
+
+      // Check subcategories
+      category.subcategories?.forEach((subcategory) => {
+        if (checkedValues.includes(subcategory.id ?? "")) {
+          newSelectedSubcategories.push(subcategory);
+        }
+      });
+    });
+
+    setSelectedCategories(newSelectedCategories);
+    if (setSelectedSubcategories) {
+      setSelectedSubcategories(newSelectedSubcategories);
+    }
+  };
+
+  const toggleSection = (sectionId: string) => {
+    setExpandedSections((prev) => {
+      const newSet = new Set(prev);
+      if (newSet.has(sectionId)) {
+        newSet.delete(sectionId);
+      } else {
+        newSet.add(sectionId);
+      }
+      return newSet;
+    });
+  };
+
   return (
     <>
-      <div className="flex items-center justify-between pb-3 mb-2">
+      <div className="flex items-center justify-between pb-4 mb-2 border-b border-slate-100">
         <h2 className="text-slate-900 text-base font-semibold">Filters</h2>
         <button
           type="button"
-          className="text-sm text-blue-600 font-medium hover:text-blue-700 transition-colors"
+          className="text-sm text-honey font-medium hover:text-honey/80 transition-colors"
           onClick={clearAll}
         >
           Reset Filter
         </button>
       </div>
 
-      <div className="filter-options space-y-1">
-        <CollapsibleSection title="Category" id="category" defaultOpen={true}>
-          <ul className="space-y-0.5">
-            {CATEGORIES.map((item) => (
-              <CheckboxItem
-                key={item.id}
-                item={item}
-                checked={selectedCategories.includes(item)}
-                onChange={() => {
-                  setSelectedCategories((prev: Entry[]) =>
-                    prev.includes(item)
-                      ? prev.filter((v) => v !== item)
-                      : [...prev, item],
-                  );
-                }}
-              />
-            ))}
-          </ul>
+      <div className="filter-options space-y-2">
+        {/* Categories with Subcategories using MultiSelectTree */}
+        <CollapsibleSection
+          title="Category"
+          id="category"
+          defaultOpen={true}
+          isOpen={expandedSections.has("category")}
+          onToggle={() => toggleSection("category")}
+        >
+          <div className="mt-2">
+            <MultiSelectTree
+              nodes={categories}
+              checked={treeChecked}
+              expanded={treeExpanded}
+              onCheck={handleTreeCheck}
+              onExpand={setTreeExpanded}
+            />
+          </div>
         </CollapsibleSection>
 
-        <CollapsibleSection title="Price Range" id="price" defaultOpen={false}>
-          <PriceRange
-            minVal={minPrice}
-            maxVal={maxPrice}
-            onMinChange={setMinPrice}
-            onMaxChange={setMaxPrice}
-          />
-        </CollapsibleSection>
-
-        <CollapsibleSection title="Rating" id="rating" defaultOpen={false}>
-          <div className="space-y-2 pt-1">
-            {[5, 4, 3, 2, 1].map((rating) => (
+        {/* Occasions */}
+        <CollapsibleSection
+          title="Occasion"
+          id="occasion"
+          defaultOpen={false}
+          isOpen={expandedSections.has("occasion")}
+          onToggle={() => toggleSection("occasion")}
+        >
+          <div className="mt-2">
+            {occasions.map((item) => (
               <label
-                key={rating}
-                className="flex items-center gap-3 cursor-pointer"
+                key={item.id}
+                className="flex items-center gap-2.5 cursor-pointer hover:bg-slate-50 px-2 py-1 rounded-md transition-colors"
               >
                 <input
                   type="checkbox"
-                  className="w-4 h-4 rounded border-slate-300 text-blue-600 focus:ring-blue-500"
+                  className="w-4 h-4 rounded border-slate-300 text-honey focus:ring-honey focus:ring-offset-0"
+                  checked={selectedOccasions.some((occ) => occ.id === item.id)}
+                  onChange={() => {
+                    setSelectedOccasions(
+                      selectedOccasions.some((occ) => occ.id === item.id)
+                        ? selectedOccasions.filter((v) => v.id !== item.id)
+                        : [...selectedOccasions, item],
+                    );
+                  }}
+                />
+                <span className="text-sm text-slate-700 capitalize">
+                  {item.name?.defaultName}
+                </span>
+              </label>
+            ))}
+          </div>
+        </CollapsibleSection>
+
+        {/* Price Range */}
+        <CollapsibleSection
+          title="Price Range"
+          id="price"
+          defaultOpen={false}
+          isOpen={expandedSections.has("price")}
+          onToggle={() => toggleSection("price")}
+        >
+          <div className="mt-2">
+            <PriceRange
+              minVal={minPrice}
+              maxVal={maxPrice}
+              onMinChange={setMinPrice}
+              onMaxChange={setMaxPrice}
+              minLimit={minPriceLimit || 0}
+              maxLimit={maxPriceLimit || 1000}
+            />
+          </div>
+        </CollapsibleSection>
+
+        {/* Rating */}
+        <CollapsibleSection
+          title="Rating"
+          id="rating"
+          defaultOpen={false}
+          isOpen={expandedSections.has("rating")}
+          onToggle={() => toggleSection("rating")}
+        >
+          <div className="space-y-2 pt-1 mt-2">
+            {[5, 4, 3, 2, 1].map((rating) => (
+              <label
+                key={rating}
+                className="flex items-center gap-3 cursor-pointer hover:bg-slate-50 px-2 py-1 rounded-md transition-colors"
+              >
+                <input
+                  type="checkbox"
+                  className="w-4 h-4 rounded border-slate-300 text-honey focus:ring-honey focus:ring-offset-0"
                 />
                 <div className="flex items-center gap-1">
                   <StarRating rating={rating} />
@@ -131,6 +231,32 @@ export default function FilterContent({
             ))}
           </div>
         </CollapsibleSection>
+
+        {/* Color */}
+        <CollapsibleSection
+          title="Color"
+          id="color"
+          defaultOpen={false}
+          isOpen={expandedSections.has("color")}
+          onToggle={() => toggleSection("color")}
+        >
+          <div className="flex flex-wrap gap-2 mt-2">
+            {colors.map((color) => (
+              <button
+                key={color}
+                className="w-8 h-8 rounded-full border-2 border-slate-200 hover:border-honey transition-colors hover:scale-110 transform duration-200"
+                style={{ backgroundColor: color }}
+                aria-label={`Color ${color}`}
+              />
+            ))}
+          </div>
+        </CollapsibleSection>
+        <CustomButton
+          type="button"
+          onClick={applyChanges}
+          className="w-full rounded-ml border-2 border-slate-300 text-black font-semibold hover:border-primary hover:bg-primary/5 hover:text-primary transition-all duration-300 flex items-center justify-center gap-2"
+          title="Apply"
+        />
       </div>
     </>
   );

@@ -4,7 +4,7 @@ import ProductFeatures from "./product-features";
 import { useState } from "react";
 
 interface ProductImageProps {
-  images: Image[];
+  sideImages: Image[];
   mainImage: Image;
   productName?: string;
   price: number;
@@ -16,7 +16,7 @@ interface ProductImageProps {
 }
 
 export default function ProductImage({
-  images,
+  sideImages,
   mainImage,
   productName = "Product",
   price,
@@ -29,7 +29,7 @@ export default function ProductImage({
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
   const [isZoomed, setIsZoomed] = useState(false);
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
-
+  const images: Image[] = [mainImage, ...sideImages];
   // Calculate discount percentage
   const calculatedDiscount = actualPrice
     ? Math.round(((actualPrice - price) / actualPrice) * 100)
@@ -84,19 +84,16 @@ export default function ProductImage({
         </div>
 
         {/* Image Counter */}
-        {images && images.length > 1 && (
-          <div className="absolute bottom-4 right-4 z-10 bg-black/50 backdrop-blur-sm px-3 py-1.5 rounded-full text-white text-xs">
-            {images.findIndex(
-              (img) =>
-                img.secureUrl === (selectedImage || mainImage?.secureUrl),
-            ) + 1}
-            / {images.length}
-          </div>
-        )}
+        <div className="absolute bottom-4 right-4 z-10 bg-black/50 backdrop-blur-sm px-3 py-1.5 rounded-full text-white text-xs">
+          {sideImages.findIndex(
+            (img) => img.secureUrl === (selectedImage || mainImage?.secureUrl),
+          ) + 1}
+          / {sideImages.length}
+        </div>
       </div>
 
       {/* Thumbnail Row */}
-      {images && images.length > 0 && (
+      {sideImages && sideImages.length > 0 && (
         <div
           data-motion="thumbnails"
           className="grid grid-cols-4 gap-4 mt-4"
@@ -133,9 +130,9 @@ export default function ProductImage({
               />
             </button>
           ))}
-          {images.length > 4 && (
+          {sideImages.length > 4 && (
             <button className="rounded-2xl overflow-hidden bg-gray-100 flex items-center justify-center text-sm font-medium text-slate-600 hover:bg-gray-200 transition-colors">
-              +{images.length - 4} more
+              +{sideImages.length - 4} more
             </button>
           )}
         </div>

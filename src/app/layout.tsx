@@ -4,6 +4,7 @@ import "./globals.css";
 import Header from "@/components/shared/header/header";
 import Footer from "@/components/shared/footer/footer";
 import ErrorBoundary from "./custom-error-boundary";
+import checkAuth from "./check-auth";
 
 const marhey = Marhey({
   subsets: ["arabic", "latin"],
@@ -17,15 +18,21 @@ export const metadata: Metadata = {
   description: "Freebie Gifts",
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const isAuthenticated = await checkAuth();
+
   return (
-    <html className={`${marhey.className} h-full antialiased`}>
-      <body className="min-h-full flex flex-col">
-        <Header />
+    <html
+      suppressHydrationWarning
+      data-darkreader-proxy-injected="true"
+      className={`${marhey.className} h-full antialiased`}
+    >
+      <body suppressHydrationWarning className="min-h-full flex flex-col">
+        <Header isAuthenticated={isAuthenticated} />
         <ErrorBoundary title="Error">{children}</ErrorBoundary>
         <Footer />
       </body>

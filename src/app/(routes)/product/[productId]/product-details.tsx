@@ -77,7 +77,7 @@ export default function ProductDetails({ product }: ProductDetailsProps) {
               )}
             </div>
             <ProductImage
-              images={product.images || []}
+              sideImages={product.images || []}
               mainImage={product.mainImage}
               productName={product.name?.defaultName}
               price={product.price ?? 0}
@@ -205,7 +205,7 @@ export default function ProductDetails({ product }: ProductDetailsProps) {
                     </span>
                   </div>
                 )}
-                {product.canBeDeliveredOutsideState !== undefined && (
+                {/* {product.canBeDeliveredOutsideState !== undefined && (
                   <div className="col-span-2 flex items-center gap-1">
                     <span className="text-slate-400">Delivery:</span>
                     <span
@@ -216,7 +216,7 @@ export default function ProductDetails({ product }: ProductDetailsProps) {
                         : "Local Only"}
                     </span>
                   </div>
-                )}
+                )} */}
                 {product.doesNeedPreparation &&
                   product.preparationTimeInMinutes && (
                     <div className="col-span-2 flex items-center gap-1">

@@ -1,12 +1,17 @@
 // components/product/ProductCard.tsx
+"use client";
 import Link from "next/link";
+import { useState } from "react";
 import { ProductItem } from "../../../../types/product";
+import ProductTag from "./details/product-tag";
 
 interface ProductCardProps {
   product: ProductItem;
 }
 
 export default function ProductCard({ product }: ProductCardProps) {
+  const [isNavigating, setIsNavigating] = useState(false);
+
   // Safely get data with fallbacks
   const productName = product.name?.defaultName || "Unnamed Product";
   const categoryName = product.category?.name?.defaultName || null;
@@ -45,14 +50,42 @@ export default function ProductCard({ product }: ProductCardProps) {
   const hasRating = product.avgRating !== undefined && product.avgRating > 0;
   const hasSpecs = product.dimensionsWCm || product.weightInKg;
 
+  const handleClick = () => {
+    setIsNavigating(true);
+  };
+
   return (
-    <Link href={`/product/${product.id}`} className="block h-full">
-      <div className="h-full flex flex-col bg-white rounded-xl shadow-md hover:shadow-xl transition-shadow duration-300 group relative">
+    <Link
+      href={`/product/${product.id}`}
+      className="block h-full relative"
+      prefetch={true}
+      onClick={handleClick}
+    >
+      {/* Loading Overlay */}
+      {isNavigating && (
+        <div className="absolute inset-0 z-20 bg-white/80 backdrop-blur-sm rounded-xl flex items-center justify-center">
+          <div className="flex flex-col items-center gap-3">
+            <div className="w-10 h-10 border-4 border-primary border-t-transparent rounded-full animate-spin" />
+            <span className="text-sm text-slate-500 font-medium">
+              Loading...
+            </span>
+          </div>
+        </div>
+      )}
+
+      <div
+        className={`h-full flex flex-col bg-white rounded-xl shadow-md hover:shadow-xl transition-shadow duration-300 group relative ${
+          isNavigating ? "opacity-50" : ""
+        }`}
+      >
         {/* Badge - Featured */}
         {product.tags && (
-          <div className="absolute left-0 top-4 uppercase text-xs font-bold bg-red-600 text-white px-3 py-1 rounded-r-md z-10">
-            {product.tags.toUpperCase()}
-          </div>
+          <ProductTag
+            isNew={product.tags == "new"}
+            isBestSeller={product.tags == "bestseller"}
+            isFeatured={product.tags == "featured"}
+            className="absolute left-2 top-4 uppercase z-10"
+          />
         )}
 
         {/* Badge - On Sale */}
@@ -73,6 +106,7 @@ export default function ProductCard({ product }: ProductCardProps) {
               src={imageUrl}
               alt={productName}
               className="max-w-full max-h-full object-contain group-hover:scale-105 transition-transform duration-300"
+              loading="lazy"
             />
           ) : (
             <div className="w-full h-full bg-gray-200 animate-pulse rounded-lg" />

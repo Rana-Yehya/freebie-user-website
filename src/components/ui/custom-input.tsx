@@ -8,6 +8,7 @@ interface CustomInputProps {
   type?: string;
   name?: string;
   id: string;
+  formAction?: string;
 }
 export default function CustomInput({
   required = true,
@@ -19,10 +20,12 @@ export default function CustomInput({
   placeholder,
   error,
   type,
+  formAction,
 }: CustomInputProps) {
   return (
     <input
       id={id}
+      formAction={formAction}
       name={name}
       data-motion="input"
       type={type}
