@@ -1,8 +1,7 @@
-export interface Location {
+export interface City {
     id?: string
-    address?: string
-    city?: City
-    cityId?: string
+    nameId?: string
+    name?: Name
     createdAt?: string
     updatedAt?: string
     deletedAt?: string

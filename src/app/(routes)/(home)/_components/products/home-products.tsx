@@ -1,5 +1,4 @@
 import ProductDisplay from "./product-display";
-import { Suspense } from "react";
 import ScrollableContainer from "./home-product-scroll";
 export default function HomeProducts() {
   return (
@@ -18,9 +17,9 @@ export default function HomeProducts() {
         </div>
 
         <ScrollableContainer>
-          <Suspense fallback={<div>Loading...</div>}>
-            <ProductDisplay tag="featured" limit={5} />
-          </Suspense>
+          {/* <Suspense fallback={<div>Loading...</div>}> */}
+          <ProductDisplay tag="featured" limit={5} />
+          {/* </Suspense> */}
         </ScrollableContainer>
       </div>
     </section>
