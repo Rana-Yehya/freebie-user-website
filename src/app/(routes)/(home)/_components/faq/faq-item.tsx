@@ -41,7 +41,7 @@ export default function FaqItem({ item }: FaqItemProps) {
               : "bg-slate-100 text-slate-500 group-hover:bg-primary/10 group-hover:text-primary"
           }`}
         >
-          <svg
+          {/* <svg
             className={`w-4 h-4 transition-transform duration-300 ${
               isOpen ? "rotate-0" : "-rotate-90"
             }`}
@@ -55,7 +55,7 @@ export default function FaqItem({ item }: FaqItemProps) {
               strokeWidth="2.5"
               d="M19 9l-7 7-7-7"
             />
-          </svg>
+          </svg> */}
         </span>
       </button>
 

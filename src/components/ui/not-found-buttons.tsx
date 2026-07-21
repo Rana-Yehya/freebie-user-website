@@ -1,20 +1,26 @@
 "use client";
 import CustomButton from "@/components/ui/custom-button";
+import { useRouter } from "next/navigation";
 
 export default function NotFoundButtons() {
+  const router = useRouter();
   return (
     <div className="flex items-center gap-4 mt-6">
       <CustomButton
         type="button"
         title="Go back home"
-        onClick={() => {}}
+        onClick={() => {
+          router.push("/");
+        }}
         className=" bg-primary hover:border-neutral-200 hover:bg-honey hover:text-white px-7 py-2.5 active:scale-95 transition-all"
       />
 
       <CustomButton
         type="button"
         title="Contact support"
-        onClick={() => {}}
+        onClick={() => {
+          router.push("/contact-us");
+        }}
         className="group flex items-center gap-2 px-7 py-2.5 active:scale-95 transition"
       >
         {/* <svg

@@ -7,6 +7,7 @@ import { Info } from "../../../../types/info";
 import { useRouter } from "next/navigation";
 import ErrorAlert from "@/components/shared/alerts/error.alert";
 import SuccessAlert from "@/components/shared/alerts/success-alert";
+import { CreateOrder } from "../../../../types/create-order";
 
 export default function CheckoutForm() {
   const [paymentMethod, setPaymentMethod] = useState("card");
@@ -39,7 +40,7 @@ export default function CheckoutForm() {
     }
 
     try {
-      const response = await fetch("/api/order", {
+      const response = await fetch("/api/order/create", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -48,21 +49,35 @@ export default function CheckoutForm() {
           paymentMethod: paymentMethod,
         }),
       });
-      const data: Info = await response.json();
+      const createOrderData: CreateOrder = await response.json();
 
-      if (!data.isSuccess) {
+      if (!createOrderData.isSuccess) {
         throw new Error(
-          data.message || "Something went wrong. Please try again.",
+          createOrderData.message || "Something went wrong. Please try again.",
         );
       } else {
-        setSuccess(data.message ?? "We'll get back to you within 24 hours.");
+        const response = await fetch("/api/order/create-paid", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            orderId: createOrderData.orderId,
+          }),
+        });
+        const data: Info = await response.json();
 
-        setError(null);
-        setTimeout(() => {
-          router.push("/order");
-        }, 3000);
+        if (!data.isSuccess) {
+          throw new Error(
+            data.message || "Something went wrong. Please try again.",
+          );
+        } else {
+          setSuccess(data.message ?? "We'll get back to you within 24 hours.");
+
+          setError(null);
+          setTimeout(() => {
+            router.push("/order");
+          }, 3000);
+        }
       }
-
       // Success
 
       // Optionally redirect after delay
@@ -260,6 +275,8 @@ export default function CheckoutForm() {
             isInCheckout={true}
             disabledCheckoutButton={loading}
           />
+          <SuccessAlert success={success} />
+          <ErrorAlert error={error} />
         </div>
       </div>
     </div>

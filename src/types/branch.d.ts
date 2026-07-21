@@ -3,7 +3,7 @@ export interface Branch {
     name?: string
     phone?: string
     storeId?: string
-    location?: Location
+    location?: UserLocation
     createdAt?: string
     updatedAt?: string
     deletedAt?: string

@@ -14,33 +14,49 @@ export default async function searchProducts({
   colors,
 }: ProductQueryRequest) {
   try {
-    const response = await axios.get<Products>(
-      `${process.env.NEXT_PUBLIC_API_URL}/api/v1/product/search`,
+    // const response = await axios.get<Products>(
+    //   `${process.env.NEXT_PUBLIC_API_URL}/api/v1/product/search`,
 
-      {
-        params: {
-          ...(tag ? { tag: tag } : {}),
-          ...(page ? { page: page } : {}),
-          ...(limit ? { limit: limit } : {}),
-          ...(priceSmall ? { priceSmall: priceSmall } : {}),
-          ...(priceHigh
-            ? {
-                priceHigh: priceHigh,
-                ...(priceSmall
-                  ? { priceSmall: priceSmall }
-                  : { priceSmall: 0 }),
-              }
-            : {}),
-          ...(occasionIds ? { occasionIds: occasionIds } : {}),
-          ...(colors ? { colors: colors } : {}),
-          ...(categoryIds ? { categoryIds: categoryIds } : {}),
-        },
-        timeout: 10000,
-      },
-    );
+    //   {
+    //     params: {
+    //       ...(tag ? { tag: tag } : {}),
+    //       ...(page ? { page: page } : {}),
+    //       ...(limit ? { limit: limit } : {}),
+    //       ...(priceSmall ? { priceSmall: priceSmall } : {}),
+    //       ...(priceHigh
+    //         ? {
+    //             priceHigh: priceHigh,
+    //             ...(priceSmall
+    //               ? { priceSmall: priceSmall }
+    //               : { priceSmall: 0 }),
+    //           }
+    //         : {}),
+    //       ...(occasionIds ? { occasionIds: occasionIds } : {}),
+    //       ...(colors ? { colors: colors } : {}),
+    //       ...(categoryIds ? { categoryIds: categoryIds } : {}),
+    //     },
+    //     timeout: 10000,
+    //   },
+    // );
+    const params = JSON.stringify({
+      ...(tag ? { tag: tag } : {}),
+      ...(page ? { page: page } : {}),
+      ...(limit ? { limit: limit } : {}),
+      ...(priceSmall ? { priceSmall: priceSmall } : {}),
+      ...(priceHigh
+        ? {
+            priceHigh: priceHigh,
+            ...(priceSmall ? { priceSmall: priceSmall } : { priceSmall: 0 }),
+          }
+        : {}),
+      ...(occasionIds ? { occasionIds: occasionIds } : {}),
+      ...(colors ? { colors: colors } : {}),
+      ...(categoryIds ? { categoryIds: categoryIds } : {}),
+    });
+    const response = await fetch(`/api/product?${params}`);
     // console.log(response.data);
     // const productData: ProductItem[] = response.data.data ?? [];
-    return response.data;
+    return await response.json();
   } catch (error) {
     console.error("Fetch error:", error);
   }

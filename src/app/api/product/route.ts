@@ -25,11 +25,7 @@ export async function GET(request: NextRequest) {
 
 
         // Return success response
-        return NextResponse.json({
-            isSuccess: true,
-            message: response.data.message || "Message sent successfully!",
-            data: response.data,
-        }, { status: 200 });
+        return NextResponse.json(response.data, { status: 200 });
 
     } catch (error: unknown) {
 

@@ -33,6 +33,9 @@ export default function ProductDisplay({
         tag: tag,
         limit: limit,
       });
+      console.log(typeof response);
+      console.log(response);
+
       if (!response?.isSuccess) {
         throw new Error(
           response?.message || "Something went wrong. Please try again.",
