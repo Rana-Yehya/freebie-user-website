@@ -249,16 +249,6 @@ export default function ProductFilter() {
         </div>
       </div>
 
-      {/* Loading State */}
-      {loading && (
-        <div className="flex justify-center items-center py-12">
-          <div className="flex flex-col items-center gap-4">
-            <div className="w-12 h-12 border-4 border-primary border-t-transparent rounded-full animate-spin" />
-            <p className="text-slate-500">Loading products...</p>
-          </div>
-        </div>
-      )}
-
       {/* BODY CONTENT */}
       <div className="flex gap-6">
         {/* Desktop Sidebar */}
@@ -286,7 +276,15 @@ export default function ProductFilter() {
 
         {/* Main Product Grid */}
         <div className="flex-[7] min-w-0">
-          {products.length === 0 && !loading ? (
+          {/* Loading State */}
+          {loading ? (
+            <div className="flex justify-center items-center py-12">
+              <div className="flex flex-col items-center gap-4">
+                <div className="w-12 h-12 border-4 border-primary border-t-transparent rounded-full animate-spin" />
+                <p className="text-slate-500">Loading products...</p>
+              </div>
+            </div>
+          ) : products.length === 0 && !loading ? (
             <div className="text-center py-12">
               <div className="text-4xl mb-4">🔍</div>
               <h3 className="text-lg font-semibold text-slate-800 mb-2">

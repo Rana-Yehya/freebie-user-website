@@ -241,14 +241,18 @@ export default function FilterContent({
           onToggle={() => toggleSection("color")}
         >
           <div className="flex flex-wrap gap-2 mt-2">
-            {colors.map((color) => (
-              <button
-                key={color}
-                className="w-8 h-8 rounded-full border-2 border-slate-200 hover:border-honey transition-colors hover:scale-110 transform duration-200"
-                style={{ backgroundColor: color }}
-                aria-label={`Color ${color}`}
-              />
-            ))}
+            {colors.map((color) => {
+              console.log(color);
+
+              return (
+                <button
+                  key={color}
+                  className={`w-8 h-8 rounded-full border-2 border-slate-200 hover:border-honey transition-colors hover:scale-110 transform duration-200`}
+                  style={{ backgroundColor: `#${color}` }}
+                  aria-label={`Color ${color}`}
+                />
+              );
+            })}
           </div>
         </CollapsibleSection>
         <CustomButton
