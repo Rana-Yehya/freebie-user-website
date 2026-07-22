@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { CategoryItem } from "../../../../types/category";
+import Link from "next/link";
 export default function CategoryDisplay() {
   // THE SMART COLLAGE ALGORITHM
   // Maps the exact number of subcategories to a perfectly justified, asymmetric grid layout.
@@ -130,13 +131,17 @@ export default function CategoryDisplay() {
                   </div> */}
                 </div>
 
-                <div className="flex-1 p-8 flex items-center justify-center bg-gray-50/30 group cursor-default relative overflow-hidden">
+                <Link
+                  href={`/product/search?categoryId=${category.id}`}
+                  prefetch={true}
+                  className="flex-1 p-8 cursor-pointer flex items-center justify-center bg-gray-50/30 group cursor-default relative overflow-hidden"
+                >
                   <img
                     src={category.image?.secureUrl}
                     alt={category.name?.defaultName}
                     className="w-full max-w-[200px] object-contain drop-shadow-xl transition-transform duration-700 group-hover:scale-105 relative z-10"
                   />
-                </div>
+                </Link>
               </div>
 
               {/* === RIGHT SIDE: THE DYNAMIC COLLAGE === */}

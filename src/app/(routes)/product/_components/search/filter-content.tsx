@@ -46,7 +46,7 @@ export default function FilterContent({
   setSelectedSubcategories?: Dispatch<SetStateAction<SubcategoryItem[]>>;
 }) {
   const [expandedSections, setExpandedSections] = useState<Set<string>>(
-    new Set(["category"]),
+    new Set([]),
   );
 
   // Get initial checked values from selected categories and subcategories
@@ -134,7 +134,7 @@ export default function FilterContent({
         <CollapsibleSection
           title="Category"
           id="category"
-          defaultOpen={true}
+          defaultOpen={false}
           isOpen={expandedSections.has("category")}
           onToggle={() => toggleSection("category")}
         >

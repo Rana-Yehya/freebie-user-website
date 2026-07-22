@@ -1,14 +1,41 @@
 import { Metadata } from "next";
-import ProductFilter from "./search";
+import ProductFilter from "../_components/search/search";
 export const metadata: Metadata = {
   title: "Search",
 };
 
 // Main ProductFilter component
-export default function Search() {
+export default async function Search() {
+  //   {
+  //   params,
+  // }: {
+  //   params: Promise<{
+  //     tag?: string;
+  //     categoryId?: string;
+  //     subcategoryId?: string;
+  //     occasionId?: string;
+  //   }>;
+  // }
+  // const router = useRouter();
+  // const {
+  //   tag,
+  //   categoryId,
+  //   subcategoryId,
+  //   occasionId,
+  // }: {
+  //   tag?: string | undefined;
+  //   categoryId?: string | undefined;
+  //   subcategoryId?: string | undefined;
+  //   occasionId?: string | undefined;
+  // } = router.query;
   return (
     <section className="py-20 sm:py-24 bg-gray-50">
-      <ProductFilter />
+      <ProductFilter
+      // categoryId={categoryId}
+      // subcategoryId={subcategoryId}
+      // occasionId={occasionId}
+      // tag={tag}
+      />
     </section>
   );
 }

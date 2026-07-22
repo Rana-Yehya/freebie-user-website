@@ -176,7 +176,12 @@ export default function ProductDetails({ product }: ProductDetailsProps) {
               </p>
 
               {/* Best For - Occasions */}
-              <ProductOccasions occasions={occasions} />
+              <ProductOccasions
+                occasions={occasions}
+                onOccasionClick={(occasion) => {
+                  router.push(`/product/search?occasionId=${occasion.id}`);
+                }}
+              />
 
               {/* Color Selection */}
 
