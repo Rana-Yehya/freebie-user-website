@@ -3,19 +3,20 @@ import { ProductItem, Products } from "../../../types/product";
 import { Info } from "../../../types/info";
 
 import { NextRequest, NextResponse } from "next/server";
+import { Categories, CategoryItem } from "../../../types/category";
 
 export async function GET(request: NextRequest) {
     try {
-        const { searchParams } = new URL(request.url);
-        const queryParams = Object.fromEntries(searchParams.entries());
+        // const { searchParams } = new URL(request.url);
+        // const queryParams = Object.fromEntries(searchParams.entries());
 
-        const response = await axios.get<Products>(
-            `${process.env.NEXT_PUBLIC_API_URL}/api/v1/product/search`,
+        const response = await axios.get<Categories>(
+            `${process.env.NEXT_PUBLIC_API_URL}/api/v1/category`,
 
             {
-                params: {
-                    ...queryParams
-                },
+                // params: {
+                //     ...queryParams
+                // },
                 timeout: 10000,
                 headers: {
                     'Content-Type': 'application/json',
@@ -56,56 +57,6 @@ export async function GET(request: NextRequest) {
         //         message: "No response from server. Please check your connection.",
         //     }, { status: 503 });
         // }
-
-        // Something else happened
-        return NextResponse.json({
-            isSuccess: false,
-            message: error || "An unexpected error occurred.",
-        }, { status: 500 });
-    }
-}
-
-export async function POST(request: NextRequest) {
-    try {
-        const token = request.cookies.get("token")?.value;
-
-        if (token) {
-            const body = await request.json();
-
-            const response = await axios.post<Info>(
-                `${process.env.NEXT_PUBLIC_API_URL}/api/v1/client/cart/product`,
-                { ...body },
-                {
-                    timeout: 10000,
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Authorization': `Bearer ${token}`
-                    },
-                }
-            );
-
-
-            // Return success response
-            return NextResponse.json({
-                isSuccess: true,
-                message: response.data.message || "Message sent successfully!",
-                // data: response.data,
-            }, { status: 200 });
-        } else {
-            return NextResponse.json({
-                isSuccess: false,
-                message: "Unauthenticated",
-            }, { status: 401 });
-
-
-        }
-    } catch (error: unknown) {
-
-        if (isAxiosError(error)) {
-            // console.error("API Error:", error);
-            return NextResponse.json(error?.response?.data, { status: error.status });
-        }
-
 
         // Something else happened
         return NextResponse.json({

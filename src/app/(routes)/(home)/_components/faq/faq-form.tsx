@@ -7,7 +7,7 @@ import CustomInput from "@/components/ui/custom-input";
 import CustomTextarea from "@/components/ui/custom-textarea";
 import { Info } from "../../../../../types/info";
 import SuccessAlert from "@/components/shared/alerts/success-alert";
-import ErrorAlert from "@/components/shared/alerts/error.alert";
+import ErrorAlert from "@/components/shared/alerts/error-alert";
 
 export default function FAQForm() {
   const [phone, setPhone] = useState("");

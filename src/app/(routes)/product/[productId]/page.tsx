@@ -4,8 +4,9 @@ import {
   ProductItem,
   SingleProduct,
 } from "../../../../types/product";
-import ProductDetails from "./product-details";
+import ProductDetails from "../_components/details/product-details";
 import { Metadata } from "next";
+import NotFound from "../../not-found";
 export const metadata: Metadata = {
   title: "Product Details",
 };
@@ -34,10 +35,6 @@ export default async function ProductDetailsPage({
     );
   } catch (error) {
     // console.error("Failed to fetch FAQs:", error);
-    return (
-      <div className="text-red-500 p-4 bg-red-50 rounded-lg">
-        Failed to load FAQs. Please try again later.
-      </div>
-    );
+    return <NotFound />;
   }
 }

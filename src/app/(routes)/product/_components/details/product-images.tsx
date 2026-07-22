@@ -87,8 +87,8 @@ export default function ProductImage({
         <div className="absolute bottom-4 right-4 z-10 bg-black/50 backdrop-blur-sm px-3 py-1.5 rounded-full text-white text-xs">
           {sideImages.findIndex(
             (img) => img.secureUrl === (selectedImage || mainImage?.secureUrl),
-          ) + 1}
-          / {sideImages.length}
+          ) + 2}
+          / {sideImages.length + 1}
         </div>
       </div>
 

@@ -5,6 +5,9 @@ import HeaderNavItem from "./header-nav-item";
 import SideMenu from "./side-menu";
 import HeaderButtons from "./header-buttons";
 import Image from "next/image";
+import { usePathname, useRouter } from "next/navigation";
+import LogoutAlert from "../alerts/logout-alert";
+import { Info } from "../../../types/info";
 
 export default function Header({
   isAuthenticated,
@@ -13,6 +16,10 @@ export default function Header({
 }) {
   const [scrolled, setScrolled] = useState(false);
   const [menuClicked, setMenuClicked] = useState(false);
+  const [showLogoutDialog, setShowLogoutDialog] = useState(false);
+  const [isLoggingOut, setIsLoggingOut] = useState(false);
+  const router = useRouter();
+  const pathname = usePathname();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -28,8 +35,61 @@ export default function Header({
     setMenuClicked(!menuClicked);
   };
 
+  const handleLogout = () => {
+    setShowLogoutDialog(true);
+  };
+
+  const confirmLogout = async () => {
+    setIsLoggingOut(true);
+    setShowLogoutDialog(false);
+
+    try {
+      const response = await fetch("/api/auth/logout", {
+        method: "GET",
+        headers: { "Content-Type": "application/json" },
+      });
+      const data: Info = await response.json();
+
+      if (!data.isSuccess) {
+        throw new Error(
+          data.message || "Something went wrong. Please try again.",
+        );
+      }
+
+      // Redirect to home on success
+      window.location.href = pathname;
+      // router.refresh();
+
+      // router.push("/");
+    } catch (err: any) {
+      console.error("Logout failed:", err.message);
+      // Reopen dialog with error state if needed
+      setShowLogoutDialog(true);
+    } finally {
+      setIsLoggingOut(false);
+    }
+  };
+
+  const cancelLogout = () => {
+    setShowLogoutDialog(false);
+    setIsLoggingOut(false);
+  };
+
   return (
     <>
+      {/* Global Loading Overlay */}
+      {isLoggingOut && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-white/80 backdrop-blur-sm">
+          <div className="flex flex-col items-center gap-4">
+            <div className="relative">
+              <div className="w-12 h-12 border-4 border-gray-200 rounded-full" />
+              <div className="absolute top-0 left-0 w-12 h-12 border-4 border-primary border-t-transparent rounded-full animate-spin" />
+            </div>
+            <p className="text-slate-600 font-medium">Logging out...</p>
+          </div>
+        </div>
+      )}
+
       <header
         className={`fixed top-0 left-0 w-full z-40 transition-all duration-300 ${
           scrolled
@@ -112,21 +172,39 @@ export default function Header({
                         0
                       </span>
                     </Link>
-
+                    {/* Order button*/}
+                    <Link
+                      className="p-2 rounded-full hover:bg-slate-100 transition-all duration-200 group"
+                      aria-label="Orders"
+                      href="/order"
+                    >
+                      <img
+                        src="/gift.svg"
+                        alt="Orders"
+                        width={20}
+                        height={20}
+                        className="opacity-70 group-hover:opacity-100 transition-opacity"
+                        style={{
+                          filter:
+                            "invert(36%) sepia(3%) saturate(12%) hue-rotate(321deg) brightness(89%) contrast(98%)",
+                        }}
+                      />
+                    </Link>
                     {/* Logout Button */}
                     <button
                       className="p-2 rounded-full hover:bg-slate-100 transition-all duration-200 group"
                       aria-label="Logout"
-                      onClick={() => {
-                        // Handle logout
-                      }}
+                      onClick={handleLogout}
+                      disabled={isLoggingOut}
                     >
                       <img
                         src="/logout.svg"
                         alt="Logout"
                         width={20}
                         height={20}
-                        className="opacity-70 group-hover:opacity-100 transition-opacity"
+                        className={`opacity-70 group-hover:opacity-100 transition-opacity ${
+                          isLoggingOut ? "opacity-40 pointer-events-none" : ""
+                        }`}
                         style={{
                           filter:
                             "invert(36%) sepia(3%) saturate(12%) hue-rotate(321deg) brightness(89%) contrast(98%)",
@@ -164,6 +242,15 @@ export default function Header({
           </div>
         </div>
       </header>
+
+      {/* Logout Confirmation Dialog */}
+      {showLogoutDialog && !isLoggingOut && (
+        <LogoutAlert
+          cancelLogout={cancelLogout}
+          confirmLogout={confirmLogout}
+          isLoading={isLoggingOut}
+        />
+      )}
 
       {/* Sidebar - Rendered outside header */}
       {menuClicked && (

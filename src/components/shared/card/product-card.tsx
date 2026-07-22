@@ -2,8 +2,8 @@
 "use client";
 import Link from "next/link";
 import { useState } from "react";
-import { ProductItem } from "../../../../types/product";
-import ProductTag from "./details/product-tag";
+import { ProductItem } from "../../../types/product";
+import ProductTag from "../../../app/(routes)/product/_components/details/product-tag";
 
 interface ProductCardProps {
   product: ProductItem;

@@ -4,7 +4,7 @@ import CustomButton from "@/components/ui/custom-button";
 import { useState, useEffect } from "react";
 import { Cart, CartProduct } from "../../../../types/cart";
 import { OrderSummary } from "../../../../types/order-summary";
-import ErrorAlert from "@/components/shared/alerts/error.alert";
+import ErrorAlert from "@/components/shared/alerts/error-alert";
 
 interface OrderSummaryProps {
   itemCount?: number;

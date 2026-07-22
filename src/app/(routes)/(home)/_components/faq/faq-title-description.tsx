@@ -1,4 +1,4 @@
-import TextSpaceSeparation from "@/components/shared/text-space-separation";
+import TextSpaceSeparation from "@/components/shared/text/text-space-separation";
 
 export default function FaqTitleDescription() {
   return (

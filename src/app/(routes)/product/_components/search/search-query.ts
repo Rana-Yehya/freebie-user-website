@@ -4,7 +4,7 @@ import {
   ProductQueryRequest,
   ProductQueryResponse,
 } from "../../../../../types/product-query";
-import ProductCard from "../product-card";
+import ProductCard from "../../../../../components/shared/card/product-card";
 
 export default async function searchQuery() {
   try {

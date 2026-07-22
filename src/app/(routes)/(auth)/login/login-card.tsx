@@ -3,8 +3,8 @@ import Link from "next/link";
 import CustomButton from "@/components/ui/custom-button";
 import { useState } from "react";
 import { Info } from "../../../../types/info";
-import { useRouter } from "next/navigation";
-import ErrorAlert from "@/components/shared/alerts/error.alert";
+import { useRouter, useSearchParams } from "next/navigation";
+import ErrorAlert from "@/components/shared/alerts/error-alert";
 import SuccessAlert from "@/components/shared/alerts/success-alert";
 import CustomInput from "@/components/ui/custom-input";
 
@@ -15,6 +15,8 @@ export default function LoginCard() {
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState<string | null>(null);
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const redirectUrl = searchParams.get("redirect") || "/";
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setLoading(true);
@@ -51,7 +53,8 @@ export default function LoginCard() {
       } else {
         // Redirect to dashboard
         setTimeout(() => {
-          router.push("/");
+          router.refresh();
+          router.push(decodeURIComponent(redirectUrl));
         }, 3000);
         setSuccess(data.message ?? "Logged In Successfully");
         setError(null);
@@ -88,7 +91,7 @@ export default function LoginCard() {
             Login
           </h1>
           {/* Success Message */}
-          <SuccessAlert success={success} />
+          <SuccessAlert isRedirecting={true} success={success} />
 
           {/* Error Message */}
           <ErrorAlert error={error} />

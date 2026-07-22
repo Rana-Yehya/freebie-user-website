@@ -5,7 +5,7 @@ import CustomInput from "@/components/ui/custom-input";
 import CustomTextarea from "@/components/ui/custom-textarea";
 import { Info } from "../../../../types/info";
 import { useRouter } from "next/navigation";
-import ErrorAlert from "@/components/shared/alerts/error.alert";
+import ErrorAlert from "@/components/shared/alerts/error-alert";
 import SuccessAlert from "@/components/shared/alerts/success-alert";
 import { CreateOrder } from "../../../../types/create-order";
 

@@ -1,5 +1,5 @@
 import axios from "axios";
-import ProductCard from "../../../product/_components/product-card";
+import ProductCard from "../../../../../components/shared/card/product-card";
 import { Products, ProductItem } from "../../../../../types/product";
 import { ProductQueryRequest } from "../../../../../types/product-query";
 

@@ -2,6 +2,7 @@
 import axios from "axios";
 import FaqItem from "./faq-item";
 import { FAQ, FAQItem } from "../../../../../types/faq";
+import NotFound from "../../../not-found";
 
 // ✅ Server Component - fetches data and passes to client component
 export default async function FaqQuestion() {
@@ -23,10 +24,6 @@ export default async function FaqQuestion() {
       </div>
     );
   } catch (error) {
-    return (
-      <div className="text-red-500 p-4 bg-red-50 rounded-lg">
-        Failed to load FAQs. Please try again later.
-      </div>
-    );
+    return <NotFound />;
   }
 }

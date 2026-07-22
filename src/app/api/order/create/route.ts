@@ -28,7 +28,7 @@ export async function POST(request: NextRequest) {
             return NextResponse.json({
                 isSuccess: false,
                 message: "Unauthenticated",
-            }, { status: 404 });
+            }, { status: 401 });
 
 
         }
