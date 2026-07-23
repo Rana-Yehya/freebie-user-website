@@ -151,8 +151,10 @@ export default function CategoryDisplay() {
                   const spanClass = patternMap[index];
 
                   return (
-                    <div
+                    <Link
                       key={sub.id}
+                      prefetch={true}
+                      href={`/product/search?subcategoryId=${sub.id}`}
                       className={`group relative flex flex-col items-center justify-center cursor-pointer min-h-[220px] overflow-hidden col-span-1 ${spanClass}`}
                     >
                       {/* Background Image */}
@@ -174,7 +176,7 @@ export default function CategoryDisplay() {
                           View Details
                         </span>
                       </div>
-                    </div>
+                    </Link>
                   );
                 })}
               </div>

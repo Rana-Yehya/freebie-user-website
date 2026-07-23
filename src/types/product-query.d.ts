@@ -2,6 +2,7 @@ import { CategoryItem } from "./category";
 import { OccasionItem } from "./occasion";
 
 export interface ProductQueryRequest {
+    name?: string;
     tag?: string;
     page?: number;
     limit?: number;
@@ -9,7 +10,7 @@ export interface ProductQueryRequest {
     priceHigh?: number;
     occasionIds?: string[];
     categoryIds?: string[];
-
+    subcategoryIds?: string[];
     colors?: string[];
     name?: string;
     // categoryIds

@@ -35,12 +35,11 @@ export default function ProductFilter() {
   const [selectedColors, setSelectedColors] = useState<string[]>([]);
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const [searchQueryString, setSearchQueryString] = useState(tag || "");
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState<string | null>(null);
   const [products, setProducts] = useState<ProductItem[]>([]);
   const [isInitialized, setIsInitialized] = useState(false);
-  const isInitialMount = useRef(true);
 
   const [filterData, setFilterData] = useState<{
     categories: CategoryItem[];
@@ -88,6 +87,8 @@ export default function ProductFilter() {
               const matchedSubcategory = category.subcategories.find(
                 (sub: SubcategoryItem) => sub.id === subcategoryId,
               );
+              console.log("subcategoryId", subcategoryId);
+              console.log("matchedSubcategory", matchedSubcategory);
               if (matchedSubcategory) {
                 setSelectedSubcategories([matchedSubcategory]);
                 break;
@@ -106,7 +107,8 @@ export default function ProductFilter() {
             setSelectedOccasions([matchedOccasion]);
           }
         }
-        if (!isInitialized) return;
+        setIsInitialized(true);
+        // if (!isInitialized) return;
       } catch (e) {
         console.error("Error fetching filter data:", e);
       }
@@ -115,57 +117,12 @@ export default function ProductFilter() {
   }, []);
 
   // Perform search when initialized or when dependencies change
+  // ✅ Correct way - depend on the actual state
   useEffect(() => {
-    const performSearch = async () => {
-      setLoading(true);
-      setError(null);
-      setSuccess(null);
-      setProducts([]);
-
-      try {
-        const searchParams: any = {
-          priceSmall: selectedMinPrice,
-          priceHigh: selectedMaxPrice,
-          colors: selectedColors.map((item) => item ?? ""),
-          categoryIds: selectedCategories.map((item) => item.id ?? ""),
-          subcategoryIds: selectedSubcategories.map((item) => item.id ?? ""),
-          occasionIds: selectedOccasions.map((item) => item.id ?? ""),
-        };
-
-        if (tag) {
-          searchParams.tag = tag;
-        }
-
-        const response = await searchProducts(searchParams);
-
-        if (!response?.isSuccess) {
-          throw new Error(
-            response?.message || "Something went wrong. Please try again.",
-          );
-        } else {
-          setProducts(response?.data ?? []);
-          setSuccess(response.message ?? "Products loaded successfully.");
-          setError(null);
-        }
-      } catch (err: any) {
-        setError(err.message || "Failed to load products. Please try again.");
-        setSuccess(null);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    performSearch();
-  }, [
-    isInitialized,
-    selectedCategories,
-    selectedSubcategories,
-    selectedOccasions,
-    selectedMinPrice,
-    selectedMaxPrice,
-    selectedColors,
-    tag,
-  ]);
+    if (isInitialized) {
+      handleSearch();
+    }
+  }, [isInitialized]); // Depend on the boolean value itself
 
   const handleSearch = async () => {
     setLoading(true);
@@ -174,13 +131,22 @@ export default function ProductFilter() {
     setProducts([]);
 
     try {
+      console.log("Search query: ", searchQueryString);
+      console.log(
+        "Search query: ",
+        searchQueryString != undefined || searchQueryString != "",
+      );
       const response = await searchProducts({
+        name:
+          searchQueryString != undefined || searchQueryString != ""
+            ? searchQueryString.trim()
+            : undefined,
         occasionIds: selectedOccasions.map((item) => item.id ?? ""),
         priceSmall: selectedMinPrice,
         priceHigh: selectedMaxPrice,
         colors: selectedColors.map((item) => item ?? ""),
         categoryIds: selectedCategories.map((item) => item.id ?? ""),
-        // subcategoryIds: selectedSubcategories.map((item) => item.id ?? ""),
+        subcategoryIds: selectedSubcategories.map((item) => item.id ?? ""),
       });
 
       if (!response?.isSuccess) {

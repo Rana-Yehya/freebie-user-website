@@ -242,8 +242,6 @@ export default function FilterContent({
         >
           <div className="flex flex-wrap gap-2 mt-2">
             {colors.map((color) => {
-              console.log(color);
-
               return (
                 <button
                   key={color}

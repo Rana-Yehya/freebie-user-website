@@ -6,16 +6,53 @@ import { NextRequest, NextResponse } from "next/server";
 
 export async function GET(request: NextRequest) {
     try {
-        const { searchParams } = new URL(request.url);
-        const queryParams = Object.fromEntries(searchParams.entries());
+        const searchParams = request.nextUrl.searchParams;
+
+        // Build params object
+        const params: any = {};
+
+        // Simple params
+        const page = searchParams.get('page');
+        const limit = searchParams.get('limit');
+        const priceSmall = searchParams.get('priceSmall');
+        const priceHigh = searchParams.get('priceHigh');
+        const tag = searchParams.get('tag');
+        const name = searchParams.get('name');
+
+        if (page) params.page = parseInt(page);
+        if (limit) params.limit = parseInt(limit);
+        if (priceSmall !== null && priceSmall !== '') params.priceSmall = parseFloat(priceSmall);
+        if (priceHigh !== null && priceHigh !== '') params.priceHigh = parseFloat(priceHigh);
+        if (tag) params.tag = tag;
+        if (name) params.name = name;
+
+
+        // ✅ Handle array params correctly - use getAll
+        const categoryIds = searchParams.getAll('categoryIds');
+        if (categoryIds.length > 0) {
+            params.categoryIds = JSON.stringify(categoryIds); // '["id1","id2"]'
+        }
+        const subcategoryIds = searchParams.getAll('subcategoryIds');
+        if (subcategoryIds.length > 0) {
+            params.subcategoryIds = JSON.stringify(subcategoryIds); // '["id1","id2"]'
+        }
+
+        const occasionIds = searchParams.getAll('occasionIds');
+        if (occasionIds.length > 0) {
+            params.occasionIds = JSON.stringify(occasionIds); // '["id1","id2"]'
+        }
+
+
+        const colors = searchParams.getAll('colors');
+        if (colors.length > 0) {
+            params.colors = JSON.stringify(colors);
+        }
 
         const response = await axios.get<Products>(
             `${process.env.NEXT_PUBLIC_API_URL}/api/v1/product/search`,
 
             {
-                params: {
-                    ...queryParams
-                },
+                params: params,
                 timeout: 10000,
                 headers: {
                     'Content-Type': 'application/json',
