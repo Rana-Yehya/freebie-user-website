@@ -2,7 +2,7 @@
 import Link from "next/link";
 import CustomButton from "@/components/ui/custom-button";
 import { useState, useEffect } from "react";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import PhoneNumberInput from "./phone-number-input";
 import CustomInput from "@/components/ui/custom-input";
 import ErrorAlert from "@/components/shared/alerts/error-alert";
@@ -15,6 +15,7 @@ import ClientCity from "./client-city";
 import TermsAccept from "./terms-accept";
 import CustomPasswordInput from "@/components/ui/custom-password-input";
 import { CityItem } from "../../../../types/city";
+import ClientBirthDate from "./client-calender";
 
 export default function RegisterCard() {
   const router = useRouter();
@@ -43,7 +44,8 @@ export default function RegisterCard() {
   const [loadingCities, setLoadingCities] = useState(false);
 
   const [formErrors, setFormErrors] = useState<Record<string, string>>({});
-
+  const searchParams = useSearchParams();
+  const redirectUrl = searchParams.get("redirect") || "/";
   // Fetch countries on mount
   useEffect(() => {
     const fetchCountries = async () => {
@@ -141,32 +143,33 @@ export default function RegisterCard() {
       }),
     );
     try {
-      // const response = await fetch("/api/auth/register", {
-      //   method: "POST",
-      //   headers: { "Content-Type": "application/json" },
-      //   body: JSON.stringify({
-      //     name,
-      //     email,
-      //     password,
-      //     confirmPassword,
-      //     phone,
-      //     dateOfBirth,
-      //     gender,
-      //     cityId,
-      //   }),
-      // });
-      // const data: Info = await response.json();
-      // if (!data.isSuccess) {
-      //   throw new Error(
-      //     data.message || "Something went wrong. Please try again.",
-      //   );
-      // } else {
-      //   setSuccess(data.message ?? "Registered Successfully!");
-      //   setError(null);
-      //   setTimeout(() => {
-      //     router.push("/");
-      //   }, 3000);
-      // }
+      const response = await fetch("/api/auth/register", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name,
+          email,
+          password,
+          confirmPassword,
+          phone,
+          dateOfBirth,
+          gender,
+          cityId,
+        }),
+      });
+      const data: Info = await response.json();
+      if (!data.isSuccess) {
+        throw new Error(
+          data.message || "Something went wrong. Please try again.",
+        );
+      } else {
+        setSuccess(data.message ?? "Registered Successfully!");
+        setError(null);
+        setTimeout(() => {
+          router.refresh();
+          router.push(decodeURIComponent(redirectUrl));
+        }, 3000);
+      }
     } catch (err: any) {
       setError(err.message || "Failed to register. Please try again.");
       setSuccess(null);
@@ -307,23 +310,12 @@ export default function RegisterCard() {
             />
 
             {/* Date of Birth */}
-            <div>
-              <label
-                htmlFor="dateOfBirth"
-                className="text-slate-700 text-sm font-medium mb-1.5 block"
-              >
-                Date of Birth <span className="text-red-500">*</span>
-              </label>
-              <CustomInput
-                id="dateOfBirth"
-                type="date"
-                required={true}
-                value={dateOfBirth}
-                onChange={(value) => setDateOfBirth(value)}
-                className="h-11 px-4"
-                error={formErrors.dateOfBirth}
-              />
-            </div>
+
+            <ClientBirthDate
+              dateOfBirth={dateOfBirth}
+              setDateOfBirth={setDateOfBirth}
+              formErrors={formErrors}
+            />
 
             {/* Gender - Radio Buttons */}
             <ClientGender
