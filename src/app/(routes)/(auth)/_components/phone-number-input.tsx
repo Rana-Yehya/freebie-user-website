@@ -4,24 +4,24 @@ import { useState, useRef, useEffect } from "react";
 
 const countryCodes = [
   { code: "+20", flag: "🇪🇬", name: "Egypt", sample: "10xxxxxxxx" },
-  { code: "+1", flag: "🇺🇸", name: "United States", sample: "123-456-7890" },
-  { code: "+44", flag: "🇬🇧", name: "United Kingdom", sample: "7400-123456" },
-  { code: "+91", flag: "🇮🇳", name: "India", sample: "98765-43210" },
-  { code: "+86", flag: "🇨🇳", name: "China", sample: "138-0000-0000" },
-  { code: "+61", flag: "🇦🇺", name: "Australia", sample: "412-345-678" },
-  { code: "+81", flag: "🇯🇵", name: "Japan", sample: "90-1234-5678" },
-  { code: "+49", flag: "🇩🇪", name: "Germany", sample: "151-12345678" },
-  { code: "+33", flag: "🇫🇷", name: "France", sample: "6-12-34-56-78" },
-  { code: "+39", flag: "🇮🇹", name: "Italy", sample: "312-345-6789" },
-  { code: "+34", flag: "🇪🇸", name: "Spain", sample: "612-345-678" },
-  { code: "+55", flag: "🇧🇷", name: "Brazil", sample: "11-91234-5678" },
-  { code: "+52", flag: "🇲🇽", name: "Mexico", sample: "55-1234-5678" },
-  { code: "+82", flag: "🇰🇷", name: "South Korea", sample: "10-1234-5678" },
-  { code: "+971", flag: "🇦🇪", name: "UAE", sample: "50-123-4567" },
-  { code: "+92", flag: "🇵🇰", name: "Pakistan", sample: "312-1234567" },
-  { code: "+234", flag: "🇳🇬", name: "Nigeria", sample: "701-234-5678" },
-  { code: "+254", flag: "🇰🇪", name: "Kenya", sample: "712-345-678" },
-  { code: "+27", flag: "🇿🇦", name: "South Africa", sample: "82-123-4567" },
+  { code: "+1", flag: "🇺🇸", name: "United States", sample: "1234567890" },
+  { code: "+44", flag: "🇬🇧", name: "United Kingdom", sample: "7400123456" },
+  { code: "+91", flag: "🇮🇳", name: "India", sample: "9876543210" },
+  { code: "+86", flag: "🇨🇳", name: "China", sample: "13800000000" },
+  { code: "+61", flag: "🇦🇺", name: "Australia", sample: "412345678" },
+  { code: "+81", flag: "🇯🇵", name: "Japan", sample: "9012345678" },
+  { code: "+49", flag: "🇩🇪", name: "Germany", sample: "15112345678" },
+  { code: "+33", flag: "🇫🇷", name: "France", sample: "612345678" },
+  { code: "+39", flag: "🇮🇹", name: "Italy", sample: "3123456789" },
+  { code: "+34", flag: "🇪🇸", name: "Spain", sample: "612345678" },
+  { code: "+55", flag: "🇧🇷", name: "Brazil", sample: "11912345678" },
+  { code: "+52", flag: "🇲🇽", name: "Mexico", sample: "5512345678" },
+  { code: "+82", flag: "🇰🇷", name: "South Korea", sample: "1012345678" },
+  { code: "+971", flag: "🇦🇪", name: "UAE", sample: "501234567" },
+  { code: "+92", flag: "🇵🇰", name: "Pakistan", sample: "3121234567" },
+  { code: "+234", flag: "🇳🇬", name: "Nigeria", sample: "7012345678" },
+  { code: "+254", flag: "🇰🇪", name: "Kenya", sample: "712345678" },
+  { code: "+27", flag: "🇿🇦", name: "South Africa", sample: "821234567" },
 ];
 
 interface PhoneNumberInputProps {
@@ -42,26 +42,27 @@ export default function PhoneNumberInput({
   error,
 }: PhoneNumberInputProps) {
   const [selectedCountry, setSelectedCountry] = useState(countryCodes[0]);
-  const [phoneNumber, setPhoneNumber] = useState(defaultValue);
+  const [displayValue, setDisplayValue] = useState(defaultValue);
+  const [rawValue, setRawValue] = useState(defaultValue.replace(/\D/g, ""));
   const [isOpen, setIsOpen] = useState(false);
-  // const [isFocused, setIsFocused] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
   // Close dropdown when clicking outside
-  // useEffect(() => {
-  //   const handleClickOutside = (event: MouseEvent) => {
-  //     if (
-  //       dropdownRef.current &&
-  //       !dropdownRef.current.contains(event.target as Node)
-  //     ) {
-  //       setIsOpen(false);
-  //     }
-  //   };
-  //   document.addEventListener("mousedown", handleClickOutside);
-  //   return () => document.removeEventListener("mousedown", handleClickOutside);
-  // }, []);
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        dropdownRef.current &&
+        !dropdownRef.current.contains(event.target as Node)
+      ) {
+        setIsOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
 
-  const formatPhoneNumber = (value: string) => {
+  // Format phone number for display (with parentheses and dashes)
+  const formatForDisplay = (value: string) => {
     const cleaned = value.replace(/\D/g, "");
     const match = cleaned.match(/^(\d{0,3})(\d{0,3})(\d{0,4})$/);
     if (match) {
@@ -74,11 +75,23 @@ export default function PhoneNumberInput({
     return value;
   };
 
+  // Get raw phone number (digits only)
+  const getRawPhoneNumber = (value: string) => {
+    return value.replace(/\D/g, "");
+  };
+
   const handlePhoneChange = (value: string) => {
-    const formatted = formatPhoneNumber(value);
-    setPhoneNumber(formatted);
+    // Update raw value (digits only)
+    const raw = getRawPhoneNumber(value);
+    setRawValue(raw);
+
+    // Update display value (formatted)
+    const formatted = formatForDisplay(value);
+    setDisplayValue(formatted);
+
     if (onChange) {
-      onChange(selectedCountry.code + value);
+      // Return full phone number with country code (clean, no formatting)
+      onChange(selectedCountry.code + raw);
     }
   };
 
@@ -86,7 +99,7 @@ export default function PhoneNumberInput({
     setSelectedCountry(country);
     setIsOpen(false);
     if (onChange) {
-      onChange(country.code + phoneNumber);
+      onChange(country.code + rawValue);
     }
   };
 
@@ -95,23 +108,22 @@ export default function PhoneNumberInput({
   };
 
   return (
-    <div className="flex gap-2">
+    <div className={`flex gap-2 ${className}`}>
       {/* Country Code Dropdown */}
-      <div className="relative">
-        {/*ref={dropdownRef}*/}
+      <div className="relative" ref={dropdownRef}>
         <button
           type="button"
           onClick={() => setIsOpen(!isOpen)}
           className={`
-              flex items-center justify-center gap-1.5 h-11 px-3 min-w-[90px]
-              text-sm text-slate-900
-              bg-white border rounded-xl
-              transition-all duration-200
-              hover:border-slate-400
-              focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary
-              ${isOpen ? "border-primary ring-2 ring-primary/20" : "border-slate-300"}
-              ${error ? "border-red-500 focus:ring-red-500/20" : ""}
-            `}
+            flex items-center justify-center gap-1.5 h-11 px-3 min-w-[90px]
+            text-sm text-slate-900
+            bg-white border rounded-xl
+            transition-all duration-200
+            hover:border-slate-400
+            focus:outline-none focus:ring-2 focus:ring-honey/20 focus:border-honey
+            ${isOpen ? "border-honey ring-2 ring-honey/20" : "border-slate-300"}
+            ${error ? "border-red-500 focus:ring-red-500/20" : ""}
+          `}
         >
           <span className="text-lg leading-none">{selectedCountry.flag}</span>
           <span className="font-medium">{selectedCountry.code}</span>
@@ -127,17 +139,7 @@ export default function PhoneNumberInput({
 
         {/* Dropdown Menu */}
         {isOpen && (
-          <div className="absolute left-0 top-full mt-1.5 w-64 max-h-60 overflow-y-auto bg-white border border-slate-200 rounded-xl shadow-lg z-50 animate-fade-in">
-            {/* <div className="sticky top-0 bg-white p-2 border-b border-slate-100">
-              <input
-                type="text"
-                placeholder="Search country..."
-                className="w-full px-3 py-1.5 text-sm border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary"
-                onChange={(e) => {
-                  // Filter functionality can be added here
-                }}
-              />
-            </div> */}
+          <div className="absolute left-0 top-full mt-1.5 w-64 max-h-60 overflow-y-auto bg-white border border-slate-200 rounded-xl shadow-lg z-50">
             <div className="p-1">
               {countryCodes.map((country) => (
                 <button
@@ -145,15 +147,15 @@ export default function PhoneNumberInput({
                   type="button"
                   onClick={() => handleCountrySelect(country)}
                   className={`
-                      w-full flex items-center gap-3 px-3 py-2.5 text-sm rounded-lg
-                      transition-all duration-150
-                      hover:bg-slate-50
-                      ${
-                        selectedCountry.code === country.code
-                          ? "bg-primary/10 text-primary font-medium"
-                          : "text-slate-700 hover:text-slate-900"
-                      }
-                    `}
+                    w-full flex items-center gap-3 px-3 py-2.5 text-sm rounded-lg
+                    transition-all duration-150
+                    hover:bg-slate-50
+                    ${
+                      selectedCountry.code === country.code
+                        ? "bg-honey/10 text-honey font-medium"
+                        : "text-slate-700 hover:text-slate-900"
+                    }
+                  `}
                 >
                   <span className="text-xl leading-none">{country.flag}</span>
                   <span className="flex-1 text-left">{country.name}</span>
@@ -163,11 +165,9 @@ export default function PhoneNumberInput({
                   {selectedCountry.code === country.code && (
                     <img
                       src="/checkmark.svg"
-                      width={18}
-                      height={18}
                       style={{
                         filter:
-                          "invert(96%) sepia(42%) saturate(7083%) hue-rotate(337deg) brightness(98%) contrast(98%)",
+                          "invert(59%) sepia(94%) saturate(1359%) hue-rotate(2deg) brightness(107%) contrast(92%)",
                       }}
                     />
                   )}
@@ -181,72 +181,44 @@ export default function PhoneNumberInput({
       {/* Phone Number Input */}
       <div className="flex-1 relative">
         <CustomInput
-          type="tel"
+          type="text"
           id="phone"
           name="Phone"
           placeholder={getPlaceholder()}
-          defaultValue={phoneNumber}
+          value={displayValue}
           onChange={handlePhoneChange}
           required={required}
-          // inputMode={numbersOnly ? "numeric" : undefined}
           className={`
-              w-full h-11 px-4 pr-10
-              text-sm text-slate-900
-              bg-white border rounded-xl
-              placeholder:text-slate-400
-              transition-all duration-200
-              hover:border-slate-400
-              focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary
-          
-              ${error ? "border-red-500 focus:ring-red-500/20" : ""}
-            `}
-          //    ${isFocused ? "border-primary ring-2 ring-primary/20" : "border-slate-300"}
+            w-full h-11 px-4
+            text-sm text-slate-900
+            bg-white border rounded-xl
+            placeholder:text-slate-400
+            transition-all duration-200
+            hover:border-slate-400
+            focus:outline-none focus:ring-2 focus:ring-honey/20 focus:border-honey
+            ${error ? "border-red-500 focus:ring-red-500/20" : "border-slate-300"}
+          `}
         />
-        {/* {phoneNumber && (
+        {displayValue && (
           <button
             type="button"
             onClick={() => {
-              setPhoneNumber("");
+              setDisplayValue("");
+              setRawValue("");
               if (onChange) onChange(selectedCountry.code + "");
             }}
             className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 transition-colors"
           >
-            <svg
-              className="w-4 h-4"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d="M6 18L18 6M6 6l12 12"
-              />
-            </svg>
-          </button>
-        )} */}
-      </div>
-
-      {/* Error Message
-      {error && (
-        <p className="mt-1.5 text-sm text-red-500 flex items-center gap-1">
-          <svg
-            className="w-4 h-4"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth="2"
-              d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+            <img
+              src="/close.svg"
+              style={{
+                filter:
+                  "invert(31%) sepia(13%) saturate(946%) hue-rotate(176deg) brightness(96%) contrast(87%)",
+              }}
             />
-          </svg>
-          {error}
-        </p>
-      )} */}
+          </button>
+        )}
+      </div>
     </div>
   );
 }

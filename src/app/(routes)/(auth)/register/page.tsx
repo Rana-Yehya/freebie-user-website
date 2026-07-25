@@ -1,5 +1,5 @@
 import { Metadata } from "next";
-import RegisterCard from "./register-card";
+import RegisterCard from "../_components/register-card";
 
 export const metadata: Metadata = {
   title: "Register",
