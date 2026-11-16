@@ -194,6 +194,10 @@ const messages: Messages = {
     en: "Elegant keepsakes and considered prices — because meaningful gifts should feel within reach.",
     ar: "هدايا أنيقة بأسعار مدروسة، لأن الهدايا المعبرة يجب أن تكون في المتناول.",
   },
+  benefitsPromiseTitle: {
+    en: "What we promise to do",
+    ar: "ما نعدكم بتقديمه",
+  },
   offerLabel: {
     en: "A little note from you, tucked inside",
     ar: "رسالة صغيرة منك بداخلها",

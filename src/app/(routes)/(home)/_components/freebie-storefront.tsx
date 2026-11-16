@@ -383,6 +383,16 @@ export default function FreebieStorefront() {
       dir={language === "ar" ? "rtl" : "ltr"}
       className={pageClass}
     >
+      {DISCOUNT > 0 && (
+        <div
+          role="status"
+          className="relative z-20 flex items-center justify-center bg-[#3a2d1e] px-4 py-2.5 text-center text-xs font-semibold tracking-wide text-[#fff8e9]"
+        >
+          {language === "ar"
+            ? `عرض لفترة محدودة — خصم ${DISCOUNT}٪ على كل قطعة`
+            : `A little extra sweetness — save ${DISCOUNT}% on every piece`}
+        </div>
+      )}
       <div className="relative overflow-hidden bg-[#f8f2e8] px-5 pb-20 pt-28 sm:pb-28 sm:pt-36">
         <div className="honeycomb honeycomb-one" aria-hidden="true" />
         <div className="honeycomb honeycomb-two" aria-hidden="true" />
@@ -433,14 +443,6 @@ export default function FreebieStorefront() {
                 className={`object-cover transition-opacity duration-500 ${heroLoaded ? "opacity-100" : "opacity-0"}`}
               />
             </div>
-            <div className="absolute -bottom-5 -left-2 rounded-2xl border border-[#efe2cb] bg-white/95 px-5 py-4 shadow-lg sm:-left-8">
-              <span className="block text-[10px] uppercase tracking-[.16em] text-[#a18250]">
-                {t("heroSweetness")}
-              </span>
-              <span className="mt-1 block font-serif text-lg text-[#3c2e1e]">
-                {t("saveEveryPiece")}
-              </span>
-            </div>
             <div className="absolute -right-2 top-8 rounded-full bg-[#fffaf0] px-4 py-3 font-serif text-sm text-[#96703a] shadow-lg sm:-right-6">
               {t("madeWithFeeling")}
             </div>
@@ -449,31 +451,36 @@ export default function FreebieStorefront() {
       </div>
 
       <section className="px-5 py-16 sm:py-20">
-        <div className="mx-auto grid max-w-6xl gap-5 md:grid-cols-3">
-          {[
-            { n: "01", title: t("benefitOneTitle"), body: t("benefitOneBody") },
-            { n: "02", title: t("benefitTwoTitle"), body: t("benefitTwoBody") },
-            {
-              n: "03",
-              title: t("benefitThreeTitle"),
-              body: t("benefitThreeBody"),
-            },
-          ].map((item) => (
-            <article
-              key={item.n}
-              className="rounded-2xl border border-[#eee5d8] bg-white p-6 sm:p-7"
-            >
-              <span className="font-serif text-sm italic text-[#bb8b41]">
-                {item.n} /
-              </span>
-              <h2 className="mt-4 font-serif text-xl text-[#3a2d1e]">
-                {item.title}
-              </h2>
-              <p className="mt-3 text-sm leading-6 text-[#857969]">
-                {item.body}
-              </p>
-            </article>
-          ))}
+        <div className="mx-auto max-w-6xl">
+          <h2 className="mb-8 max-w-2xl font-serif text-3xl leading-tight text-[#382b1d] sm:text-4xl">
+            {t("benefitsPromiseTitle")}
+          </h2>
+          <div className="grid gap-5 md:grid-cols-3">
+            {[
+              { n: "01", title: t("benefitOneTitle"), body: t("benefitOneBody") },
+              { n: "02", title: t("benefitTwoTitle"), body: t("benefitTwoBody") },
+              {
+                n: "03",
+                title: t("benefitThreeTitle"),
+                body: t("benefitThreeBody"),
+              },
+            ].map((item) => (
+              <article
+                key={item.n}
+                className="rounded-2xl border border-[#eee5d8] bg-white p-6 sm:p-7"
+              >
+                <span className="font-serif text-sm italic text-[#bb8b41]">
+                  {item.n} /
+                </span>
+                <h3 className="mt-4 font-serif text-xl text-[#3a2d1e]">
+                  {item.title}
+                </h3>
+                <p className="mt-3 text-sm leading-6 text-[#857969]">
+                  {item.body}
+                </p>
+              </article>
+            ))}
+          </div>
         </div>
       </section>
 
@@ -624,13 +631,6 @@ export default function FreebieStorefront() {
 
       <section id="future-plans" className="px-5 py-16 sm:py-20">
         <div className="mx-auto max-w-6xl overflow-hidden rounded-[1.75rem] border border-[#eee5d8] bg-[#f8f3ea] px-6 py-10 text-[#382b1d] sm:px-10 sm:py-12">
-          {DISCOUNT > 0 && (
-            <p className="mb-5 inline-flex rounded-full border border-[#e8d6b6] bg-[#fffaf1] px-3 py-1.5 text-[10px] font-semibold uppercase tracking-[.16em] text-[#8b672d]">
-              {language === "ar"
-                ? `خصم ${DISCOUNT}٪ على كل قطعة`
-                : `Save ${DISCOUNT}% on every piece`}
-            </p>
-          )}
           <p className="text-[10px] font-semibold uppercase tracking-[.2em] text-[#a77c38]">
             {t("promiseLabel")}
           </p>
