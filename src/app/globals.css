@@ -38,6 +38,9 @@ html { scroll-behavior: smooth; }
 .freebie-header { font-family: Arial, sans-serif; transition: background-color .3s ease; }
 html:has(.freebie-dark) .freebie-header { background: rgba(35, 29, 22, .94); border-color: rgba(230, 211, 175, .15); }
 html:has(.freebie-dark) .freebie-header a { color: #f5ead8; }
+html:has(.freebie-dark) #mobile-navigation { background: #231d16; border-color: rgba(230, 211, 175, .15); }
+html:has(.freebie-dark) #mobile-navigation a { color: #f5ead8; }
+.freebie-page[dir="rtl"] { font-family: Arial, "Marhey", sans-serif; }
 .honeycomb {
   position: absolute;
   width: 220px;
