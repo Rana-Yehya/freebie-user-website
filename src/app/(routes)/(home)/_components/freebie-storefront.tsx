@@ -623,14 +623,24 @@ export default function FreebieStorefront() {
       </section>
 
       <section id="future-plans" className="px-5 py-16 sm:py-20">
-        <div className="mx-auto max-w-6xl overflow-hidden rounded-[1.75rem] border  border-[#eee5d8] bg-white px-6 py-10 text-[#f4eee4] sm:px-10 sm:py-12">
-          <p className="inline-flex rounded-full px-3 py-1 text-[10px] font-semibold uppercase tracking-[.18em] text-white">
-            ✦ {t("happinessAlways")}
+        <div className="mx-auto max-w-6xl overflow-hidden rounded-[1.75rem] border border-[#eee5d8] bg-[#f8f3ea] px-6 py-10 text-[#382b1d] sm:px-10 sm:py-12">
+          {DISCOUNT > 0 && (
+            <p className="mb-5 inline-flex rounded-full border border-[#e8d6b6] bg-[#fffaf1] px-3 py-1.5 text-[10px] font-semibold uppercase tracking-[.16em] text-[#8b672d]">
+              {language === "ar"
+                ? `خصم ${DISCOUNT}٪ على كل قطعة`
+                : `Save ${DISCOUNT}% on every piece`}
+            </p>
+          )}
+          <p className="text-[10px] font-semibold uppercase tracking-[.2em] text-[#a77c38]">
+            {t("promiseLabel")}
           </p>
-          <h2 className="mt-5 max-w-2xl font-serif text-3xl leading-tight sm:text-4xl text-[#756959]">
+          <h2 className="mt-3 max-w-2xl font-serif text-3xl leading-tight text-[#382b1d] sm:text-4xl">
             {t("futureTitle")}
           </h2>
-          <p className="mt-4 max-w-3xl text-sm leading-6 text-[#857969]">
+          <h3 className="mt-5 font-serif text-xl text-[#76562d]">
+            {t("promiseTitle")}
+          </h3>
+          <p className="mt-3 max-w-3xl text-sm leading-6 text-[#756959]">
             {t("futureDescription")}
           </p>
           <div className="mt-8 grid gap-4 md:grid-cols-3">
@@ -644,23 +654,23 @@ export default function FreebieStorefront() {
             ].map((item) => (
               <article
                 key={item.title}
-                className="rounded-2xl border border-[#8a6800] bg-white p-5"
+                className="rounded-2xl border border-[#eee5d8] bg-white p-5"
               >
                 <span className="rounded py-1 text-[9px] uppercase tracking-wider text-[#a77c38]">
                   {t("comingSoon")}
                 </span>
-                <h3 className="mt-4 flex items-center justify-between gap-2 text-sm font-semibold text-[#3a2d1e]">
+                <h4 className="mt-4 flex items-center justify-between gap-2 text-sm font-semibold text-[#3a2d1e]">
                   {item.title}
-                </h3>
-                <p className="mt-2 text-xs leading-5 text-[#857969]">
+                </h4>
+                <p className="mt-2 text-xs leading-5 text-[#756959]">
                   {item.body}
                 </p>
               </article>
             ))}
           </div>
-          <div className="mt-8 flex flex-col justify-between gap-3 border-t border-white/10 pt-5 text-xs text-[#f0a035] sm:flex-row sm:items-center">
+          <div className="mt-8 flex flex-col justify-between gap-3 border-t border-[#e8dcc9] pt-5 text-xs text-[#756959] sm:flex-row sm:items-center">
             <span>{t("ourGoal")}</span>
-            <span className="font-serif text-[#857969]">
+            <span className="font-serif text-[#76562d]">
               Freebie · {t("happinessAlways")}
             </span>
           </div>

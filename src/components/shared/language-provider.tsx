@@ -228,6 +228,11 @@ const messages: Messages = {
   pageNumber: { en: "Page", ar: "الصفحة" },
   of: { en: "of", ar: "من" },
   reviewNumber: { en: "Show review", ar: "عرض التقييم" },
+  promiseLabel: { en: "Our promise", ar: "وعدنا" },
+  promiseTitle: {
+    en: "We promise to keep making meaningful joy feel within reach.",
+    ar: "نعدكم بمواصلة صنع لحظات فرح ذات معنى وفي المتناول.",
+  },
   futureTitle: {
     en: "Happiness Does Not Stop at Jewelry",
     ar: "السعادة لا تتوقف عند المجوهرات",
