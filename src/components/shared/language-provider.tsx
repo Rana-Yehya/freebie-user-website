@@ -119,6 +119,27 @@ const messages: Messages = {
   prepTime: { en: "Prep time", ar: "وقت التجهيز" },
   weight: { en: "Weight", ar: "الوزن" },
   minutes: { en: "mins", ar: "دقيقة" },
+  close: { en: "Close", ar: "إغلاق" },
+  colorLabel: { en: "Color", ar: "اللون" },
+  ratingUp: { en: "& up", ar: "فأكثر" },
+  pageNumber: { en: "Page", ar: "الصفحة" },
+  of: { en: "of", ar: "من" },
+  reviewNumber: { en: "Show review", ar: "عرض التقييم" },
+  futureTitle: { en: "Happiness Does Not Stop at Jewelry", ar: "السعادة لا تتوقف عند المجوهرات" },
+  futureDescription: { en: "Freebie is born to spread happiness through gifts. We’re starting with stainless steel jewelry, with more thoughtful surprises on the way.", ar: "نبدأ بالمجوهرات المصنوعة من الستانلس ستيل، ولدينا المزيد من الهدايا المميزة والمفاجآت الدافئة في الطريق." },
+  futureAromaTitle: { en: "Aroma & Relaxation Gifts", ar: "هدايا الاسترخاء والعطور" },
+  futureAromaBody: { en: "Curated soothing reed diffusers and luxury comfort sets.", ar: "مجموعات عطرية مهدئة وهدايا للاسترخاء." },
+  futureMemoryTitle: { en: "Custom Memory Keepsakes", ar: "ذكريات مخصصة" },
+  futureMemoryBody: { en: "Personalized illustration prints and sentimental surprise boxes.", ar: "رسومات شخصية وصناديق مفاجآت مليئة بالمشاعر." },
+  futureCelebrationTitle: { en: "Celebration Surprise Kits", ar: "مجموعات الاحتفال" },
+  futureCelebrationBody: { en: "All-in-one birthday, anniversary, and congratulations bundles.", ar: "باقات أعياد الميلاد والمناسبات الخاصة." },
+  productColor: { en: "Color", ar: "اللون" },
+  noCategories: { en: "No categories found", ar: "لم يتم العثور على فئات" },
+  allRights: { en: "All rights reserved", ar: "جميع الحقوق محفوظة" },
+  expand: { en: "Expand", ar: "توسيع" },
+  collapse: { en: "Collapse", ar: "طيّ" },
+  fiveStars: { en: "5 out of 5 stars", ar: "٥ من ٥ نجوم" },
+
 };
 
 interface LanguageContextValue {

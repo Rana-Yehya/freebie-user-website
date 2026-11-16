@@ -1,11 +1,11 @@
 @import "tailwindcss";
 
 :root {
-  --background: #fffaf0;
-  --foreground: #382b1d;
+  --background: #fffdf8;
+  --foreground: #30251a;
   --primary: #f5bf32;
-  --secondary: #bd8a3d;
-  --honey: #cf9418;
+  --secondary: #edaa08;
+  --honey: #eaa900;
 }
 
 @theme inline {
@@ -73,8 +73,8 @@ html:has(.freebie-dark) #mobile-navigation a { color: #f5ead8; }
   *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
 }
 body {
-  background: #fffaf0;
-  color: #382b1d;
+  background: #fffdf8;
+  color: #30251a;
   font-family: Arial, sans-serif;
 }
 
@@ -88,8 +88,22 @@ html[lang="ar"] .global-route h3,
 .freebie-page[dir="rtl"] .font-serif { font-family: Arial, "Marhey", sans-serif; }
 
 .global-route {
-  color: #382b1d;
-  background: #fffaf0;
+  color: #30251a;
+  background: #fffdf8;
+}
+
+.global-route :is(button, a).bg-primary,
+.global-route :is(button, a).bg-honey {
+  color: #30251a;
+  background-color: #f5bf32;
+}
+.global-route :is(button, a).bg-primary:hover,
+.global-route :is(button, a).bg-honey:hover {
+  background-color: #edaa08;
+}
+.global-route :is(button, a):focus-visible {
+  outline: 3px solid #eaa900;
+  outline-offset: 3px;
 }
 
 .global-route h1,
@@ -123,9 +137,11 @@ html[lang="ar"] .global-route h3,
 .global-route a { transition: color .2s ease, background-color .2s ease, border-color .2s ease, transform .2s ease; }
 
 .global-route .text-primary { color: #a77c38; }
-.global-route .bg-primary { background-color: #bd8a3d; }
-.global-route .bg-honey { background-color: #bd8a3d; }
-.global-route .bg-honey:hover { background-color: #986a28; }
+.global-route .bg-primary { background-color: #f5bf32; color: #30251a; }
+.global-route .bg-honey { background-color: #f5bf32; color: #30251a; }
+.global-route .bg-honey.text-white,
+.global-route .bg-primary.text-white { color: #30251a; }
+.global-route .bg-honey:hover { background-color: #edaa08; }
 
 .freebie-header { border-color: #e7ddcb; background-color: rgba(255, 250, 240, .92); }
 .freebie-header[lang="ar"] { font-family: Arial, "Marhey", sans-serif; }

@@ -20,12 +20,12 @@ export default function ErrorPage({
   return (
     <section className="global-route py-20 sm:py-24 bg-gray-50">
       <div className="flex flex-col items-center justify-center text-sm h-[360px]">
-        <p className="font-medium text-lg text-honey">Something went wrong!</p>
+        <p className="font-medium text-lg text-honey">{t("somethingWrong")}</p>
         <h2 className="md:text-6xl text-4xl font-semibold text-gray-800">
-          error
+          {t("somethingWrong")}
         </h2>
         <p className="text-base mt-4 text-black">
-          {t("pageMissing")}
+          {t("retry")}
         </p>
         <NotFoundButtons />
         {/* <h2>Something went wrong!</h2>

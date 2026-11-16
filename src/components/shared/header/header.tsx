@@ -19,7 +19,7 @@ export default function Header({}: { isAuthenticated: boolean }) {
     <header lang={language} dir={language === "ar" ? "rtl" : "ltr"} className="freebie-header fixed inset-x-0 top-0 z-40 border-b border-[#e7ddcb]/70 bg-[#fffdf9]/90 backdrop-blur-xl">
       <div className="mx-auto flex max-w-7xl items-center justify-between gap-2 px-4 py-3 sm:px-5">
         <Link href="/" aria-label={t("home")} className="flex shrink-0 items-center gap-2.5">
-          <Image src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Profile-round-t74ogGk2GSLb4UMyXzSc5hX6s6ZiHR.png" alt="" width={56} height={56} className="size-14 object-contain mix-blend-multiply" />
+          <Image src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Profile-round-t74ogGk2GSLb4UMyXzSc5hX6s6ZiHR.png" alt="" width={56} height={56} className="size-12 object-contain sm:size-14" />
           <span className="font-serif text-xl font-semibold tracking-tight text-[#382b1d]">Freebie<span className="ml-1 text-[#bd8a3d]">.</span></span>
         </Link>
         <nav aria-label={language === "ar" ? "التنقل الرئيسي" : "Main navigation"} className="hidden items-center gap-7 text-xs text-[#766956] md:flex">

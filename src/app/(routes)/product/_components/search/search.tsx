@@ -285,18 +285,18 @@ export default function ProductFilter() {
             className="absolute inset-0 bg-black/50 backdrop-blur-sm"
             onClick={() => setIsDrawerOpen(false)}
           />
-          <div className="absolute right-0 top-0 h-full w-[300px] bg-white shadow-2xl overflow-y-auto">
+          <div className="absolute end-0 top-0 h-full w-[300px] bg-white shadow-2xl overflow-y-auto">
             <div className="p-5">
               <div className="flex items-center justify-between mb-4">
                 <h2 className="text-lg font-semibold text-slate-900">
-                  Filters
+                  {t("filters")}
                 </h2>
                 <button
                   type="button"
                   onClick={() => setIsDrawerOpen(false)}
                   className="p-2 hover:bg-gray-100 rounded-full transition-colors"
                 >
-                  <img src="/close.svg" alt="Close" />
+                  <img src="/close.svg" alt={t("close")} />
                 </button>
               </div>
 

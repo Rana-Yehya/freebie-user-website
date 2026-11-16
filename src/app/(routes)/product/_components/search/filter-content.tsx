@@ -226,7 +226,7 @@ export default function FilterContent({
                 <div className="flex items-center gap-1">
                   <StarRating rating={rating} />
                   {rating < 5 && (
-                    <span className="text-xs text-slate-500">& up</span>
+                    <span className="text-xs text-slate-500">{t("ratingUp")}</span>
                   )}
                 </div>
               </label>
@@ -249,7 +249,7 @@ export default function FilterContent({
                   key={color}
                   className={`w-8 h-8 rounded-full border-2 border-slate-200 hover:border-honey transition-colors hover:scale-110 transform duration-200`}
                   style={{ backgroundColor: `#${color}` }}
-                  aria-label={`Color ${color}`}
+                  aria-label={`${t("colorLabel")} ${color}`}
                 />
               );
             })}
