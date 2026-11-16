@@ -1,10 +1,12 @@
 import { ProductItem } from "../../../../../types/product";
+import { useLanguage } from "@/components/shared/language-provider";
 
 export default function ProductDimensions({
   product,
 }: {
   product: ProductItem;
 }) {
+  const { t } = useLanguage();
   return (
     <div className="grid grid-cols-2 gap-2 text-sm">
       {product.dimensionsWCm && (
@@ -33,7 +35,7 @@ export default function ProductDimensions({
       )}
       {product.weightInKg && (
         <div className="flex items-center gap-1">
-          <span className="text-slate-400">Weight:</span>
+          <span className="text-slate-400">{t("weight")}:</span>
           <span className="font-medium text-slate-700">
             {product.weightInKg}kg
           </span>
@@ -53,9 +55,9 @@ export default function ProductDimensions({
                     )} */}
       {product.doesNeedPreparation && product.preparationTimeInMinutes && (
         <div className="col-span-2 flex items-center gap-1">
-          <span className="text-slate-400">Prep Time:</span>
+          <span className="text-slate-400">{t("prepTime")}:</span>
           <span className="font-medium text-slate-700">
-            {product.preparationTimeInMinutes} mins
+            {product.preparationTimeInMinutes} {t("minutes")}
           </span>
         </div>
       )}

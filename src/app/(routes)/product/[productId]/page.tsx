@@ -28,7 +28,7 @@ export default async function ProductDetailsPage({
 
     return (
       productItem && (
-        <section className="py-20 sm:py-24 bg-white">
+        <section className="global-route min-h-screen bg-[#fffaf0] pb-16 pt-24 sm:pt-28">
           <ProductDetails product={productItem} />
         </section>
       )

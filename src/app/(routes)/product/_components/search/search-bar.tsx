@@ -1,4 +1,5 @@
 import CustomInput from "@/components/ui/custom-input";
+import { useLanguage } from "@/components/shared/language-provider";
 
 export default function SearchBar({
   onChange,
@@ -7,6 +8,7 @@ export default function SearchBar({
   onChange: (value: string) => void;
   className?: string;
 }) {
+  const { t } = useLanguage();
   //action="/search"
   return (
     <div className="w-full relative">
@@ -15,7 +17,8 @@ export default function SearchBar({
         name="q"
         className={`w-full text-sm bg-white flex-1 min-w-0 border border-slate-200 ${className}`}
         // className="w-full border h-12 shadow p-4 rounded-full dark:text-gray-800 dark:border-gray-700 dark:bg-gray-200"
-        placeholder="search"
+        placeholder={t("searchInput")}
+        ariaLabel={t("searchInput")}
         onChange={onChange}
         id="search"
       />

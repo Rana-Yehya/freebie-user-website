@@ -3,6 +3,7 @@ import { Marhey } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/shared/header/header";
 import ErrorBoundary from "./custom-error-boundary";
+import { LanguageProvider } from "@/components/shared/language-provider";
 
 const marhey = Marhey({
   subsets: ["arabic", "latin"],
@@ -28,8 +29,10 @@ export default function RootLayout({
       className={`${marhey.className} h-full antialiased`}
     >
       <body suppressHydrationWarning className="min-h-full flex flex-col">
-        <Header isAuthenticated={false} />
-        <ErrorBoundary title="Error">{children}</ErrorBoundary>
+        <LanguageProvider>
+          <Header isAuthenticated={false} />
+          <ErrorBoundary title="Error">{children}</ErrorBoundary>
+        </LanguageProvider>
       </body>
     </html>
   );

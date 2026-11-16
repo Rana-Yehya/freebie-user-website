@@ -1,4 +1,6 @@
 import { OccasionItem } from "../../../../../types/occasion";
+import { useLanguage } from "@/components/shared/language-provider";
+import { useRouter } from "next/navigation";
 
 interface ProductOccasionsProps {
   occasions: OccasionItem[];
@@ -9,6 +11,8 @@ export default function ProductOccasions({
   occasions,
   onOccasionClick,
 }: ProductOccasionsProps) {
+  const { t } = useLanguage();
+  const router = useRouter();
   if (!occasions || occasions.length === 0) return null;
 
   const handleClick = (occasion: OccasionItem) => {
@@ -18,7 +22,7 @@ export default function ProductOccasions({
       // Default behavior: navigate to search with occasion filter
       const params = new URLSearchParams();
       params.set("occasion", occasion?.id || "");
-      window.location.href = `/product/search?${params.toString()}`;
+      router.push(`/product/search?${params.toString()}`);
     }
   };
 
@@ -26,7 +30,7 @@ export default function ProductOccasions({
     <div className="bg-amber-50/40 rounded-lg border border-amber-200/30 p-3.5">
       <div className="flex items-center gap-1.5 mb-2">
         <span className="text-xs text-amber-600">✦</span>
-        <span className="text-xs font-medium text-amber-700">Best for</span>
+        <span className="text-xs font-medium text-amber-700">{t("bestFor")}</span>
       </div>
 
       <div className="flex flex-wrap gap-1.5">

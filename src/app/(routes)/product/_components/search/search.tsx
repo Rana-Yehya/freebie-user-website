@@ -10,8 +10,10 @@ import SearchBar from "./search-bar";
 import searchProducts from "./search-products";
 import searchQuery from "./search-query";
 import { useSearchParams } from "next/navigation";
+import { useLanguage } from "@/components/shared/language-provider";
 
 export default function ProductFilter() {
+  const { t } = useLanguage();
   const searchParams = useSearchParams();
 
   // Get query parameters
@@ -190,10 +192,10 @@ export default function ProductFilter() {
       <div className="flex flex-col sm:flex-row items-center gap-6 mb-6 w-full flex-nowrap">
         <div className="flex-[2] min-w-0 w-full sm:w-auto text-left">
           <h1 className="text-2xl font-bold text-slate-900 whitespace-nowrap">
-            Products
+            {t("productsTitle")}
           </h1>
           {loading && (
-            <span className="text-sm text-slate-400 ml-2">Loading...</span>
+            <span className="text-sm text-slate-400 ml-2">{t("loading")}</span>
           )}
         </div>
 
@@ -209,7 +211,7 @@ export default function ProductFilter() {
             <CustomButton
               onClick={() => setIsDrawerOpen(true)}
               className="lg:hidden flex items-center gap-2 px-3 py-1.5 text-sm font-medium text-slate-700 bg-white border border-slate-200 rounded-lg hover:bg-gray-50 hover:border-slate-300 transition-all whitespace-nowrap"
-              title="Filter"
+              title={t("filters")}
             />
           </div>
         </div>
@@ -247,23 +249,23 @@ export default function ProductFilter() {
             <div className="flex justify-center items-center py-12">
               <div className="flex flex-col items-center gap-4">
                 <div className="w-12 h-12 border-4 border-primary border-t-transparent rounded-full animate-spin" />
-                <p className="text-slate-500">Loading products...</p>
+                <p className="text-slate-500">{t("loadingProducts")}</p>
               </div>
             </div>
           ) : products.length === 0 && !loading ? (
             <div className="text-center py-12">
               <div className="text-4xl mb-4">🔍</div>
               <h3 className="text-lg font-semibold text-slate-800 mb-2">
-                No products found
+                {t("noProducts")}
               </h3>
               <p className="text-slate-500">
-                Try adjusting your filters or search terms.
+                {t("adjustFilters")}
               </p>
               <button
                 onClick={clearAll}
                 className="mt-4 text-primary hover:underline font-medium"
               >
-                Clear all filters
+                {t("clearFilters")}
               </button>
             </div>
           ) : (

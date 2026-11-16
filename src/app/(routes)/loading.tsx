@@ -1,7 +1,12 @@
 // components/LoadingScreen.tsx
+"use client";
+
+import { useLanguage } from "@/components/shared/language-provider";
+
 export default function Loading() {
+  const { t } = useLanguage();
   return (
-    <section className="py-20 sm:py-24 bg-gray-50">
+    <section className="global-route py-20 sm:py-24 bg-gray-50">
       <div className="fixed inset-0 bg-white/80 backdrop-blur-sm z-50 flex items-center justify-center">
         <div className="flex flex-col items-center gap-4">
           {/* Spinner */}
@@ -11,7 +16,7 @@ export default function Loading() {
           </div>
 
           {/* Loading Text */}
-          <p className="text-slate-600 font-medium">Loading...</p>
+          <p className="text-slate-600 font-medium">{t("loading")}</p>
         </div>
       </div>
     </section>

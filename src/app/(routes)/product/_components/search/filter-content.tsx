@@ -7,6 +7,7 @@ import { CategoryItem, SubcategoryItem } from "../../../../../types/category";
 import { OccasionItem } from "../../../../../types/occasion";
 import MultiSelectTree from "./multi-level-checkbox-item";
 import CustomButton from "@/components/ui/custom-button";
+import { useLanguage } from "@/components/shared/language-provider";
 
 export default function FilterContent({
   categories = [],
@@ -45,6 +46,7 @@ export default function FilterContent({
   selectedSubcategories?: SubcategoryItem[];
   setSelectedSubcategories?: Dispatch<SetStateAction<SubcategoryItem[]>>;
 }) {
+  const { t } = useLanguage();
   const [expandedSections, setExpandedSections] = useState<Set<string>>(
     new Set([]),
   );
@@ -119,20 +121,20 @@ export default function FilterContent({
   return (
     <>
       <div className="flex items-center justify-between pb-4 mb-2 border-b border-slate-100">
-        <h2 className="text-slate-900 text-base font-semibold">Filters</h2>
+        <h2 className="text-slate-900 text-base font-semibold">{t("filters")}</h2>
         <button
           type="button"
           className="text-sm text-honey font-medium hover:text-honey/80 transition-colors"
           onClick={clearAll}
         >
-          Reset Filter
+          {t("resetFilter")}
         </button>
       </div>
 
       <div className="filter-options space-y-2">
         {/* Categories with Subcategories using MultiSelectTree */}
         <CollapsibleSection
-          title="Category"
+          title={t("category")}
           id="category"
           defaultOpen={false}
           isOpen={expandedSections.has("category")}
@@ -151,7 +153,7 @@ export default function FilterContent({
 
         {/* Occasions */}
         <CollapsibleSection
-          title="Occasion"
+          title={t("occasion")}
           id="occasion"
           defaultOpen={false}
           isOpen={expandedSections.has("occasion")}
@@ -185,7 +187,7 @@ export default function FilterContent({
 
         {/* Price Range */}
         <CollapsibleSection
-          title="Price Range"
+          title={t("priceRange")}
           id="price"
           defaultOpen={false}
           isOpen={expandedSections.has("price")}
@@ -205,7 +207,7 @@ export default function FilterContent({
 
         {/* Rating */}
         <CollapsibleSection
-          title="Rating"
+          title={t("rating")}
           id="rating"
           defaultOpen={false}
           isOpen={expandedSections.has("rating")}
@@ -234,7 +236,7 @@ export default function FilterContent({
 
         {/* Color */}
         <CollapsibleSection
-          title="Color"
+          title={t("color")}
           id="color"
           defaultOpen={false}
           isOpen={expandedSections.has("color")}
@@ -257,7 +259,7 @@ export default function FilterContent({
           type="button"
           onClick={applyChanges}
           className="w-full rounded-ml border-2 border-slate-300 text-black font-semibold hover:border-primary hover:bg-primary/5 hover:text-primary transition-all duration-300 flex items-center justify-center gap-2"
-          title="Apply"
+          title={t("apply")}
         />
       </div>
     </>

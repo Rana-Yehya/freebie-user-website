@@ -2,6 +2,7 @@
 
 import NotFoundButtons from "@/components/ui/not-found-buttons";
 import { useEffect } from "react";
+import { useLanguage } from "@/components/shared/language-provider";
 
 export default function ErrorPage({
   error,
@@ -10,20 +11,21 @@ export default function ErrorPage({
   error: Error & { digest?: string };
   unstable_retry: () => void;
 }) {
+  const { t } = useLanguage();
   useEffect(() => {
     // Log the error to an error reporting service
     console.error(error);
   }, [error]);
 
   return (
-    <section className="py-20 sm:py-24 bg-gray-50">
+    <section className="global-route py-20 sm:py-24 bg-gray-50">
       <div className="flex flex-col items-center justify-center text-sm h-[360px]">
         <p className="font-medium text-lg text-honey">Something went wrong!</p>
         <h2 className="md:text-6xl text-4xl font-semibold text-gray-800">
           error
         </h2>
         <p className="text-base mt-4 text-black">
-          Sorry, we couldn’t find the page you’re looking for.
+          {t("pageMissing")}
         </p>
         <NotFoundButtons />
         {/* <h2>Something went wrong!</h2>

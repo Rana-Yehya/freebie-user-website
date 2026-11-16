@@ -1,3 +1,5 @@
+import { useLanguage } from "@/components/shared/language-provider";
+
 export default function ProductColors({
   colors,
   setSelectedVariant,
@@ -7,12 +9,13 @@ export default function ProductColors({
   setSelectedVariant: (index: number) => void;
   isColorSelected: (index: number) => boolean;
 }) {
+  const { t } = useLanguage();
   return (
     colors &&
     colors.length > 0 && (
       <div>
         <p className="text-sm font-medium text-slate-700 mb-3">
-          Available Colors
+          {t("availableColors")}
         </p>
         <div className="flex items-center gap-3">
           {colors.map((color, index) => (
@@ -31,7 +34,7 @@ export default function ProductColors({
                         `}
               // className={`w-8 h-8 rounded-full ring-offset-2 transition-all hover:scale-110 `}
               style={{ backgroundColor: `#${color}` }}
-              aria-label={`Color ${index + 1}`}
+              aria-label={`${t("color")} ${index + 1}`}
             />
           ))}
           {colors.length > 6 && (

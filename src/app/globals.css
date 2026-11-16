@@ -1,11 +1,11 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #060709;
-  --primary: #f9d619;
-  --secondary: #e5172c;
-  --honey: #f5a80a;
+  --background: #fffaf0;
+  --foreground: #382b1d;
+  --primary: #f5bf32;
+  --secondary: #bd8a3d;
+  --honey: #cf9418;
 }
 
 @theme inline {
@@ -40,7 +40,7 @@ html:has(.freebie-dark) .freebie-header { background: rgba(35, 29, 22, .94); bor
 html:has(.freebie-dark) .freebie-header a { color: #f5ead8; }
 html:has(.freebie-dark) #mobile-navigation { background: #231d16; border-color: rgba(230, 211, 175, .15); }
 html:has(.freebie-dark) #mobile-navigation a { color: #f5ead8; }
-.freebie-page[dir="rtl"] { font-family: Arial, "Marhey", sans-serif; }
+.freebie-page[dir="rtl"] { font-family: inherit; }
 .honeycomb {
   position: absolute;
   width: 220px;
@@ -73,10 +73,65 @@ html:has(.freebie-dark) #mobile-navigation a { color: #f5ead8; }
   *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
 }
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Marhey;
+  background: #fffaf0;
+  color: #382b1d;
+  font-family: Arial, sans-serif;
 }
+
+html[lang="ar"] body { font-family: Arial, "Marhey", sans-serif; }
+html[lang="ar"] .global-route h1,
+html[lang="ar"] .global-route h2,
+html[lang="ar"] .global-route h3,
+.freebie-page[dir="rtl"] h1,
+.freebie-page[dir="rtl"] h2,
+.freebie-page[dir="rtl"] h3,
+.freebie-page[dir="rtl"] .font-serif { font-family: Arial, "Marhey", sans-serif; }
+
+.global-route {
+  color: #382b1d;
+  background: #fffaf0;
+}
+
+.global-route h1,
+.global-route h2,
+.global-route h3 { font-family: Georgia, "Times New Roman", serif; letter-spacing: -.025em; }
+
+.global-route .text-black,
+.global-route .text-slate-900,
+.global-route .text-slate-800,
+.global-route .text-slate-700,
+.global-route .text-gray-800 { color: #382b1d; }
+
+.global-route .text-slate-600,
+.global-route .text-slate-500 { color: #756959; }
+
+.global-route .bg-white,
+.global-route .bg-gray-50,
+.global-route .bg-gray-50\/80 { background-color: #fffdf9; }
+
+.global-route .border-slate-200,
+.global-route .border-slate-300 { border-color: #e9dfd0; }
+
+.global-route input:not([type="checkbox"]),
+.global-route textarea,
+.global-route select {
+  border-color: #e9dfd0;
+  border-radius: .75rem;
+}
+
+.global-route button,
+.global-route a { transition: color .2s ease, background-color .2s ease, border-color .2s ease, transform .2s ease; }
+
+.global-route .text-primary { color: #a77c38; }
+.global-route .bg-primary { background-color: #bd8a3d; }
+.global-route .bg-honey { background-color: #bd8a3d; }
+.global-route .bg-honey:hover { background-color: #986a28; }
+
+.freebie-header { border-color: #e7ddcb; background-color: rgba(255, 250, 240, .92); }
+.freebie-header[lang="ar"] { font-family: Arial, "Marhey", sans-serif; }
+.freebie-header button { color: #756959; }
+.freebie-header button:hover { border-color: #bd8a3d; background-color: #f8f2e8; }
+
 
 div::-webkit-scrollbar {
   display: none;

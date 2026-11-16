@@ -16,12 +16,14 @@ import ProductColors from "./product-colors";
 import ProductQuantity from "./product-quantity";
 import ProductDimensions from "./product-dimensions";
 import ProductCategoryAndSubcategory from "./product-category-and-subcategory";
+import { useLanguage } from "@/components/shared/language-provider";
 
 interface ProductDetailsProps {
   product: ProductItem;
 }
 
 export default function ProductDetails({ product }: ProductDetailsProps) {
+  const { t } = useLanguage();
   const [quantity, setQuantity] = useState(1);
   const [loadingCart, setLoadingCart] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -251,7 +253,7 @@ export default function ProductDetails({ product }: ProductDetailsProps) {
 
               <CustomButton
                 className="w-full h-14 rounded-full border-2 border-slate-300 text-black font-semibold hover:border-primary hover:bg-primary/5 hover:text-primary transition-all duration-300 flex items-center justify-center gap-2"
-                title="Add to Cart"
+                title={t("addToCart")}
                 disabled={loadingCart}
                 onClick={() => handleAddToCart(true)}
               />
@@ -260,7 +262,7 @@ export default function ProductDetails({ product }: ProductDetailsProps) {
                 onClick={() => handleAddToCart(false)}
                 data-motion="button"
                 className="w-full h-14 bg-primary font-semibold hover:bg-honey hover:text-white transition-all duration-300"
-                title={`Buy Now — $${((product.price ?? 0) * quantity).toFixed(2)}`}
+                title={`${t("buyNow")} — $${((product.price ?? 0) * quantity).toFixed(2)}`}
               />
             </div>
           </div>

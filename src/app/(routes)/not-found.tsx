@@ -1,14 +1,12 @@
-import NotFoundButtons from "@/components/ui/not-found-buttons";
-import { Metadata } from "next";
+"use client";
+
+import { useLanguage } from "@/components/shared/language-provider";
 import Link from "next/link";
 
-export const metadata: Metadata = {
-  title: "Error",
-};
-
 export default function NotFound() {
+  const { t } = useLanguage();
   return (
-    <section className="min-h-[80vh] flex items-center justify-center px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-white to-gray-50/80">
+    <section className="global-route min-h-[80vh] flex items-center justify-center px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-white to-gray-50/80">
       <div className="relative max-w-2xl w-full">
         {/* Decorative elements */}
         <div className="absolute -top-20 -left-20 w-64 h-64 bg-honey/5 rounded-full blur-3xl -z-10" />
@@ -20,6 +18,7 @@ export default function NotFound() {
             <div className="w-32 h-32 mx-auto bg-honey/10 rounded-full flex items-center justify-center">
               <img
                 src="/sad-face.svg"
+                alt=""
                 className="w-16 h-16"
                 style={{
                   filter:
@@ -35,12 +34,12 @@ export default function NotFound() {
 
           {/* Title */}
           <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold text-slate-900 mb-4">
-            Page Not Found
+            {t("pageNotFound")}
           </h1>
 
           {/* Description */}
           <p className="text-base sm:text-lg text-slate-600 max-w-md mx-auto mb-8">
-            Oops! The page you're looking for doesn't exist or has been moved.
+            {t("pageMissing")}
           </p>
 
           {/* Action Buttons */}
@@ -51,14 +50,14 @@ export default function NotFound() {
             >
               <img
                 src="/home.svg"
-                alt="Back to Home"
+                alt=""
                 className="w-4 h-4"
                 style={{
                   filter:
                     "invert(100%) sepia(100%) saturate(0%) hue-rotate(288deg) brightness(102%) contrast(102%)",
                 }}
               />
-              Back to Home
+{t("backHome")}
             </Link>
             <Link
               href="/product/search"
@@ -66,25 +65,25 @@ export default function NotFound() {
             >
               <img
                 src="/grid.svg"
-                alt="Browse Products"
+                alt=""
                 className="w-4 h-4"
                 style={{
                   filter:
                     "invert(25%) sepia(13%) saturate(1309%) hue-rotate(176deg) brightness(90%) contrast(94%)",
                 }}
               />
-              Browse Products
+{t("browseProducts")}
             </Link>
           </div>
 
           {/* Help Text */}
           <p className="mt-8 text-sm text-slate-400">
-            Need help?{" "}
+            {t("needHelp")}{" "}
             <Link
               href="/contact-us"
               className="text-honey hover:underline font-medium"
             >
-              Contact our support team
+              {t("contactSupport")}
             </Link>
           </p>
         </div>

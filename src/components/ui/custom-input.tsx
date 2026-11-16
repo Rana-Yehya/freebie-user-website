@@ -16,6 +16,7 @@ interface CustomInputProps {
   autoComplete?: string;
   disabled?: boolean;
   readOnly?: boolean;
+  ariaLabel?: string;
 }
 
 export default function CustomInput({
@@ -36,10 +37,8 @@ export default function CustomInput({
   autoComplete,
   disabled = false,
   readOnly = false,
+  ariaLabel,
 }: CustomInputProps) {
-  // Determine if the input has a value for styling
-  const hasValue = value && value.length > 0;
-
   return (
     <div className="relative w-full">
       <input
@@ -53,6 +52,7 @@ export default function CustomInput({
         onChange={(e) => onChange(e.target.value)}
         onKeyDown={onKeyDown}
         placeholder={placeholder}
+        aria-label={ariaLabel}
         min={min}
         max={max}
         step={step}
