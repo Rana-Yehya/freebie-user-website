@@ -1,5 +1,6 @@
 "use client";
 import { useState } from "react";
+import { useLanguage } from "@/components/shared/language-provider";
 import { CategoryItem } from "../../../../../types/category";
 
 interface TreeItemProps {
@@ -24,6 +25,7 @@ function TreeItem({
   parentChecked = false,
   parentPartial = false,
 }: TreeItemProps) {
+  const { t } = useLanguage();
   const hasChildren = node.subcategories && node.subcategories.length > 0;
   const isExpanded = expanded.includes(node.id ?? "");
   const isChecked = checked.includes(node.id ?? "");
@@ -139,7 +141,7 @@ function TreeItem({
             type="button"
             onClick={handleToggle}
             className="p-1 rounded hover:bg-slate-200 transition-colors shrink-0"
-            aria-label={isExpanded ? "Collapse" : "Expand"}
+            aria-label={isExpanded ? t("collapse") : t("expand")}
           >
             {isExpanded ? (
               <svg

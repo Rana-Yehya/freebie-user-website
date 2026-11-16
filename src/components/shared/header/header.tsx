@@ -1,265 +1,145 @@
 "use client";
-import Link from "next/link";
-import { useEffect, useState } from "react";
-import HeaderNavItem from "./header-nav-item";
-import SideMenu from "./side-menu";
-import HeaderButtons from "./header-buttons";
+
 import Image from "next/image";
-import { usePathname, useRouter } from "next/navigation";
-import LogoutAlert from "../alerts/logout-alert";
-import { Info } from "../../../types/info";
+import Link from "next/link";
+import { useState } from "react";
+import { useLanguage } from "@/components/shared/language-provider";
 
-export default function Header({
-  isAuthenticated,
-}: {
-  isAuthenticated: boolean;
-}) {
-  const [scrolled, setScrolled] = useState(false);
-  const [menuClicked, setMenuClicked] = useState(false);
-  const [showLogoutDialog, setShowLogoutDialog] = useState(false);
-  const [isLoggingOut, setIsLoggingOut] = useState(false);
-  const router = useRouter();
-  const pathname = usePathname();
+export default function Header({}: { isAuthenticated: boolean }) {
+  const [menuOpen, setMenuOpen] = useState(false);
+  const [dark, setDark] = useState(false);
+  const { language, toggleLanguage, t } = useLanguage();
 
-  useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 30);
-    };
-
-    window.addEventListener("scroll", handleScroll);
-
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
-
-  const handleMenuClick = () => {
-    setMenuClicked(!menuClicked);
+  const toggleTheme = () => {
+    const next = !dark;
+    setDark(next);
+    window.dispatchEvent(new CustomEvent("freebie-theme", { detail: next }));
   };
-
-  const handleLogout = () => {
-    setShowLogoutDialog(true);
-  };
-
-  const confirmLogout = async () => {
-    setIsLoggingOut(true);
-    setShowLogoutDialog(false);
-
-    try {
-      const response = await fetch("/api/auth/logout", {
-        method: "GET",
-        headers: { "Content-Type": "application/json" },
-      });
-      const data: Info = await response.json();
-
-      if (!data.isSuccess) {
-        throw new Error(
-          data.message || "Something went wrong. Please try again.",
-        );
-      }
-
-      // Redirect to home on success
-      window.location.href = pathname;
-      // router.refresh();
-
-      // router.push("/");
-    } catch (err: any) {
-      console.error("Logout failed:", err.message);
-      // Reopen dialog with error state if needed
-      setShowLogoutDialog(true);
-    } finally {
-      setIsLoggingOut(false);
-    }
-  };
-
-  const cancelLogout = () => {
-    setShowLogoutDialog(false);
-    setIsLoggingOut(false);
-  };
-
   return (
-    <>
-      {/* Global Loading Overlay */}
-      {isLoggingOut && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-white/80 backdrop-blur-sm">
-          <div className="flex flex-col items-center gap-4">
-            <div className="relative">
-              <div className="w-12 h-12 border-4 border-gray-200 rounded-full" />
-              <div className="absolute top-0 left-0 w-12 h-12 border-4 border-primary border-t-transparent rounded-full animate-spin" />
-            </div>
-            <p className="text-slate-600 font-medium">Logging out...</p>
-          </div>
-        </div>
-      )}
-
-      <header
-        className={`fixed top-0 left-0 w-full z-40 transition-all duration-300 ${
-          scrolled
-            ? "bg-white/50 backdrop-blur-md shadow-[0_8px_30px_rgba(0,0,0,0.1)] rounded-b-2xl"
-            : "bg-transparent"
-        }`}
-      >
-        <div className="max-w-7xl mx-auto pt-2.5 pl-5 pr-5 pb-2.5">
-          <div className="flex items-center justify-between gap-x-4 lg:grid lg:grid-cols-[1fr_auto_1fr] lg:justify-stretch lg:rounded-br-[1.375rem] lg:rounded-bl-[1.375rem]">
-            {/* Logo */}
-            <div className="flex-shrink-0">
-              <Link
-                href="/"
-                title="Home"
-                className="flex items-center justify-center w-10 h-10 rounded-full bg-white shadow-sm hover:shadow-md transition-all duration-300 hover:scale-105"
+    <header
+      lang={language}
+      dir={language === "ar" ? "rtl" : "ltr"}
+      className="freebie-header fixed inset-x-0 top-0 z-40 border-b border-[#e7ddcb]/70 bg-[#fffdf9]/90 backdrop-blur-xl"
+    >
+      <div className="mx-auto flex max-w-7xl items-center justify-between gap-2 px-4 py-3 sm:px-5">
+        <Link
+          href="/"
+          aria-label={t("home")}
+          className="flex shrink-0 items-center gap-2.5"
+        >
+          <Image
+            src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Profile-round-t74ogGk2GSLb4UMyXzSc5hX6s6ZiHR.png"
+            alt=""
+            width={56}
+            height={56}
+            className="size-12 object-contain sm:size-14"
+          />
+          <span className="font-serif text-xl font-semibold tracking-tight text-[#382b1d]">
+            Freebie<span className="ml-1 text-[#bd8a3d]">.</span>
+          </span>
+        </Link>
+        <nav
+          aria-label={language === "ar" ? "التنقل الرئيسي" : "Main navigation"}
+          className="hidden items-center gap-7 text-xs text-[#766956] md:flex"
+        >
+          <Link href="/#collection" className="transition hover:text-[#a77c38]">
+            {t("collection")}
+          </Link>
+          <Link href="/#reviews" className="transition hover:text-[#a77c38]">
+            {t("reviews")}
+          </Link>
+          <Link
+            href="/#future-plans"
+            className="transition hover:text-[#a77c38]"
+          >
+            {t("comingSoon")}
+          </Link>
+        </nav>
+        <div className="flex items-center gap-1.5 sm:gap-2">
+          <a
+            href="https://wa.me/"
+            target="_blank"
+            rel="noreferrer"
+            aria-label={t("chat")}
+            title={t("chat")}
+            className="grid size-9 place-items-center rounded-full border border-[#e9dfd0] text-[#547b54] transition hover:bg-[#edf5eb]"
+          >
+            <svg
+              aria-hidden="true"
+              viewBox="0 0 24 24"
+              fill="currentColor"
+              className="size-[18px]"
+            >
+              <path d="M20.5 3.5A11.8 11.8 0 0 0 12.1 0C5.6 0 .3 5.3.3 11.8c0 2.1.5 4.1 1.6 5.9L0 24l6.5-1.7a11.8 11.8 0 0 0 5.6 1.4h.1c6.5 0 11.8-5.3 11.8-11.8 0-3.2-1.2-6.2-3.5-8.4Zm-8.4 18.2h-.1a9.8 9.8 0 0 1-5-1.4l-.4-.2-3.8 1 1-3.7-.3-.4a9.8 9.8 0 1 1 8.6 4.7Zm5.4-7.3c-.3-.1-1.7-.8-2-.9-.3-.1-.5-.1-.7.2-.2.3-.8.9-1 1.1-.2.2-.4.2-.7.1-.3-.1-1.2-.4-2.3-1.4-.9-.8-1.5-1.7-1.7-2-.2-.3 0-.5.1-.6l.5-.6c.1-.2.2-.3.3-.5.1-.2 0-.4 0-.5s-.7-1.6-.9-2.2c-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.4s1 2.8 1.1 3c.1.2 2 3 4.8 4.2.7.3 1.2.5 1.6.6.7.2 1.3.2 1.8.1.6-.1 1.7-.7 1.9-1.3.2-.7.2-1.2.2-1.3s-.2-.2-.5-.3Z" />
+            </svg>
+          </a>
+          {/* <button type="button" onClick={toggleTheme} aria-label={dark ? t("lightMode") : t("darkMode")} className="rounded-full border border-[#e9dfd0] px-2.5 py-2 text-[11px] text-[#756959]"><span aria-hidden="true">{dark ? t("lightModeText") : t("darkModeText")}</span><span className="sr-only">{dark ? t("lightModeText") : t("darkModeText")}</span></button> */}
+          <button
+            type="button"
+            onClick={toggleLanguage}
+            aria-label={
+              language === "en" ? t("switchToArabic") : t("switchToEnglish")
+            }
+            className="rounded-full border border-[#e9dfd0] px-2.5 py-2 text-[11px] font-semibold text-[#756959]"
+          >
+            {language === "en" ? "AR" : "EN"}
+          </button>
+          <button
+            type="button"
+            onClick={() => setMenuOpen((open) => !open)}
+            aria-expanded={menuOpen}
+            aria-controls="mobile-navigation"
+            aria-label={menuOpen ? t("closeMenu") : t("openMenu")}
+            className="grid size-9 place-items-center rounded-full border border-[#e9dfd0] text-lg text-[#756959] md:hidden"
+          >
+            {menuOpen ? (
+              <span aria-hidden="true">×</span>
+            ) : (
+              <svg
+                aria-hidden="true"
+                viewBox="0 0 24 24"
+                className="size-5"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="1.8"
               >
-                <img
-                  src="/logo.png"
-                  alt="Logo"
-                  className="h-auto w-auto max-h-8 max-w-8 object-contain"
-                />
-              </Link>
-            </div>
-
-            {/* Navigation - Centered */}
-            <nav className="hidden lg:flex items-center justify-center flex-1">
-              <ul className="flex items-center gap-1">
-                <li>
-                  <HeaderNavItem href="/" title="Home" scrolled={scrolled} />
-                </li>
-                <li>
-                  <HeaderNavItem
-                    href="/about-us"
-                    title="About"
-                    scrolled={scrolled}
-                  />
-                </li>
-                <li>
-                  <HeaderNavItem
-                    href="/product/search"
-                    title="Products"
-                    scrolled={scrolled}
-                  />
-                </li>
-                <li>
-                  <HeaderNavItem
-                    href="/contact-us"
-                    title="Contact Us"
-                    scrolled={scrolled}
-                  />
-                </li>
-              </ul>
-            </nav>
-
-            {/* Right Section */}
-            <div className="flex items-center gap-x-10 justify-self-end">
-              <span className="hidden lg:block h-4 w-[1px] bg-neutral-300"></span>
-
-              <div className="flex items-center gap-x-3 lg:gap-x-2">
-                {isAuthenticated ? (
-                  <>
-                    {/* Cart Button */}
-                    <Link
-                      href="/cart"
-                      className="relative p-2 rounded-full hover:bg-slate-100 transition-all duration-200 group"
-                      aria-label="Shopping cart"
-                    >
-                      <img
-                        src="/cart.svg"
-                        alt="Cart"
-                        width={20}
-                        height={20}
-                        className="opacity-70 group-hover:opacity-100 transition-opacity"
-                        style={{
-                          filter:
-                            "invert(36%) sepia(3%) saturate(12%) hue-rotate(321deg) brightness(89%) contrast(98%)",
-                        }}
-                      />
-                      <span className="absolute -top-0.5 -right-0.5 w-4 h-4 bg-primary text-white text-[10px] font-bold rounded-full flex items-center justify-center">
-                        0
-                      </span>
-                    </Link>
-                    {/* Order button*/}
-                    <Link
-                      className="p-2 rounded-full hover:bg-slate-100 transition-all duration-200 group"
-                      aria-label="Orders"
-                      href="/order"
-                    >
-                      <img
-                        src="/gift.svg"
-                        alt="Orders"
-                        width={20}
-                        height={20}
-                        className="opacity-70 group-hover:opacity-100 transition-opacity"
-                        style={{
-                          filter:
-                            "invert(36%) sepia(3%) saturate(12%) hue-rotate(321deg) brightness(89%) contrast(98%)",
-                        }}
-                      />
-                    </Link>
-                    {/* Logout Button */}
-                    <button
-                      className="p-2 rounded-full hover:bg-slate-100 transition-all duration-200 group"
-                      aria-label="Logout"
-                      onClick={handleLogout}
-                      disabled={isLoggingOut}
-                    >
-                      <img
-                        src="/logout.svg"
-                        alt="Logout"
-                        width={20}
-                        height={20}
-                        className={`opacity-70 group-hover:opacity-100 transition-opacity ${
-                          isLoggingOut ? "opacity-40 pointer-events-none" : ""
-                        }`}
-                        style={{
-                          filter:
-                            "invert(36%) sepia(3%) saturate(12%) hue-rotate(321deg) brightness(89%) contrast(98%)",
-                        }}
-                      />
-                    </button>
-                  </>
-                ) : (
-                  <HeaderButtons scrolled={scrolled} />
-                )}
-
-                {/* Mobile Menu Button */}
-                <button
-                  type="button"
-                  aria-label="Open menu"
-                  className="lg:hidden p-2 rounded-full hover:bg-slate-100 transition-all duration-200"
-                  title="Open menu"
-                  onClick={handleMenuClick}
-                >
-                  <img
-                    src="/menu.svg"
-                    alt="Menu"
-                    width={24}
-                    height={24}
-                    className="transition-opacity"
-                    style={{
-                      filter: scrolled
-                        ? "invert(72%) sepia(34%) saturate(907%) hue-rotate(354deg) brightness(98%) contrast(100%)"
-                        : "invert(0%) sepia(0%) saturate(7%) hue-rotate(194deg) brightness(101%) contrast(103%)",
-                    }}
-                  />
-                </button>
-              </div>
-            </div>
-          </div>
+                <path d="M4 6h16M4 12h16M4 18h16" />
+              </svg>
+            )}
+          </button>
         </div>
-      </header>
-
-      {/* Logout Confirmation Dialog */}
-      {showLogoutDialog && !isLoggingOut && (
-        <LogoutAlert
-          cancelLogout={cancelLogout}
-          confirmLogout={confirmLogout}
-          isLoading={isLoggingOut}
-        />
+      </div>
+      {menuOpen && (
+        <nav
+          id="mobile-navigation"
+          aria-label={language === "ar" ? "قائمة التنقل" : "Mobile navigation"}
+          className="border-t border-[#e9dfd0] bg-[#fffdf9] px-5 py-3 md:hidden"
+        >
+          <div className="mx-auto flex max-w-7xl flex-col">
+            <Link
+              onClick={() => setMenuOpen(false)}
+              href="/#collection"
+              className="rounded-lg px-3 py-3 text-sm text-[#766956]"
+            >
+              {t("collection")}
+            </Link>
+            <Link
+              onClick={() => setMenuOpen(false)}
+              href="/#reviews"
+              className="rounded-lg px-3 py-3 text-sm text-[#766956]"
+            >
+              {t("reviews")}
+            </Link>
+            <Link
+              onClick={() => setMenuOpen(false)}
+              href="/#future-plans"
+              className="rounded-lg px-3 py-3 text-sm text-[#766956]"
+            >
+              {t("comingSoon")}
+            </Link>
+          </div>
+        </nav>
       )}
-
-      {/* Sidebar - Rendered outside header */}
-      {menuClicked && (
-        <SideMenu
-          onClick={() => {
-            setMenuClicked(false);
-          }}
-        />
-      )}
-    </>
+    </header>
   );
 }

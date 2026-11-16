@@ -1,11 +1,11 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #060709;
-  --primary: #f9d619;
-  --secondary: #e5172c;
-  --honey: #f5a80a;
+  --background: #fffdf8;
+  --foreground: #30251a;
+  --primary: #f5bf32;
+  --secondary: #edaa08;
+  --honey: #eaa900;
 }
 
 @theme inline {
@@ -23,11 +23,131 @@
     --foreground: #ededed;
   }
 }
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Marhey;
+
+html { scroll-behavior: smooth; }
+
+.freebie-page {
+  font-family: Arial, sans-serif;
+  --freebie-ink: #382b1d;
+  --freebie-muted: #756959;
+  color: var(--freebie-ink);
+  background: #fffdf9;
+  transition: background-color .3s ease, color .3s ease;
 }
+.freebie-page .font-serif { font-family: Georgia, "Times New Roman", serif; }
+.freebie-header { font-family: Arial, sans-serif; transition: background-color .3s ease; }
+html:has(.freebie-dark) .freebie-header { background: rgba(35, 29, 22, .94); border-color: rgba(230, 211, 175, .15); }
+html:has(.freebie-dark) .freebie-header a { color: #f5ead8; }
+html:has(.freebie-dark) #mobile-navigation { background: #231d16; border-color: rgba(230, 211, 175, .15); }
+html:has(.freebie-dark) #mobile-navigation a { color: #f5ead8; }
+.freebie-page[dir="rtl"] { font-family: inherit; }
+.honeycomb {
+  position: absolute;
+  width: 220px;
+  aspect-ratio: 1;
+  opacity: .28;
+  pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg width='80' height='70' viewBox='0 0 80 70' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' stroke='%23c49b56' stroke-opacity='.45' stroke-width='1.4'%3E%3Cpath d='M20 1 39 12v22L20 45 1 34V12zm40 0 19 11v22L60 45 41 34V12zM40 35l19 11v22L40 79 21 68V46z'/%3E%3C/g%3E%3C/svg%3E");
+  background-size: 80px 70px;
+}
+.honeycomb-one { right: 3%; top: -55px; transform: rotate(10deg); }
+.honeycomb-two { bottom: 7%; left: 2%; transform: rotate(-12deg) scale(.7); }
+.hero-copy { animation: freebie-rise .8s both; }
+.hero-art { animation: freebie-rise .8s .12s both; }
+.freebie-card { box-shadow: 0 5px 25px rgba(70, 48, 20, .035); transition: transform .35s ease, box-shadow .35s ease; }
+.freebie-card:hover { transform: translateY(-4px); box-shadow: 0 18px 36px rgba(70, 48, 20, .10); }
+.review-fade { animation: freebie-fade .55s ease both; }
+.social-link { display: grid; width: 34px; height: 34px; place-items: center; border: 1px solid #e9dfd0; border-radius: 9999px; color: #756959; font-size: 14px; transition: all .2s ease; }
+.social-link:hover { color: #9b7029; border-color: #c8a768; transform: translateY(-2px); }
+.freebie-dark { background: #1d1914; color: #f5ead8; }
+.freebie-dark .freebie-card, .freebie-dark .bg-white, .freebie-dark .bg-white\/80, .freebie-dark .bg-white\/95 { background-color: #2b241c; color: #f5ead8; }
+.freebie-dark .bg-\[\#fdfbf8\], .freebie-dark footer { background-color: #221d17; }
+.freebie-dark .bg-\[\#f8f2e8\] { background-color: #2c241a; }
+.freebie-dark .text-\[\#382b1d\], .freebie-dark .text-\[\#3a2d1e\], .freebie-dark .text-\[\#35291c\], .freebie-dark .text-\[\#493a28\], .freebie-dark .text-\[\#514332\] { color: #f5ead8; }
+.freebie-dark textarea, .freebie-dark input { color: #f5ead8; background-color: #29231c; }
+.freebie-dark .freebie-header { background: rgba(35, 29, 22, .92); border-color: rgba(230, 211, 175, .15); }
+.freebie-dark .freebie-header a, .freebie-dark footer span { color: #f5ead8; }
+@keyframes freebie-rise { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes freebie-fade { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
+}
+body {
+  background: #fffdf8;
+  color: #30251a;
+  font-family: Arial, sans-serif;
+}
+
+html[lang="ar"] body { font-family: Arial, "Marhey", sans-serif; }
+html[lang="ar"] .global-route h1,
+html[lang="ar"] .global-route h2,
+html[lang="ar"] .global-route h3,
+.freebie-page[dir="rtl"] h1,
+.freebie-page[dir="rtl"] h2,
+.freebie-page[dir="rtl"] h3,
+.freebie-page[dir="rtl"] .font-serif { font-family: Arial, "Marhey", sans-serif; }
+
+.global-route {
+  color: #30251a;
+  background: #fffdf8;
+}
+
+.global-route :is(button, a).bg-primary,
+.global-route :is(button, a).bg-honey {
+  color: #30251a;
+  background-color: #f5bf32;
+}
+.global-route :is(button, a).bg-primary:hover,
+.global-route :is(button, a).bg-honey:hover {
+  background-color: #edaa08;
+}
+.global-route :is(button, a):focus-visible {
+  outline: 3px solid #eaa900;
+  outline-offset: 3px;
+}
+
+.global-route h1,
+.global-route h2,
+.global-route h3 { font-family: Georgia, "Times New Roman", serif; letter-spacing: -.025em; }
+
+.global-route .text-black,
+.global-route .text-slate-900,
+.global-route .text-slate-800,
+.global-route .text-slate-700,
+.global-route .text-gray-800 { color: #382b1d; }
+
+.global-route .text-slate-600,
+.global-route .text-slate-500 { color: #756959; }
+
+.global-route .bg-white,
+.global-route .bg-gray-50,
+.global-route .bg-gray-50\/80 { background-color: #fffdf9; }
+
+.global-route .border-slate-200,
+.global-route .border-slate-300 { border-color: #e9dfd0; }
+
+.global-route input:not([type="checkbox"]),
+.global-route textarea,
+.global-route select {
+  border-color: #e9dfd0;
+  border-radius: .75rem;
+}
+
+.global-route button,
+.global-route a { transition: color .2s ease, background-color .2s ease, border-color .2s ease, transform .2s ease; }
+
+.global-route .text-primary { color: #a77c38; }
+.global-route .bg-primary { background-color: #f5bf32; color: #30251a; }
+.global-route .bg-honey { background-color: #f5bf32; color: #30251a; }
+.global-route .bg-honey.text-white,
+.global-route .bg-primary.text-white { color: #30251a; }
+.global-route .bg-honey:hover { background-color: #edaa08; }
+
+.freebie-header { border-color: #e7ddcb; background-color: rgba(255, 250, 240, .92); }
+.freebie-header[lang="ar"] { font-family: Arial, "Marhey", sans-serif; }
+.freebie-header button { color: #756959; }
+.freebie-header button:hover { border-color: #bd8a3d; background-color: #f8f2e8; }
+
 
 div::-webkit-scrollbar {
   display: none;

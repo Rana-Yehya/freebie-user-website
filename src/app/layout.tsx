@@ -2,9 +2,8 @@ import type { Metadata } from "next";
 import { Marhey } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/shared/header/header";
-import Footer from "@/components/shared/footer/footer";
 import ErrorBoundary from "./custom-error-boundary";
-import checkAuth from "./check-auth";
+import { LanguageProvider } from "@/components/shared/language-provider";
 
 const marhey = Marhey({
   subsets: ["arabic", "latin"],
@@ -12,19 +11,17 @@ const marhey = Marhey({
 
 export const metadata: Metadata = {
   title: {
-    template: "%s | Freebie Gifts",
-    default: "Home | Freebie Gifts",
+    template: "%s | Freebie",
+    default: "Freebie — Happiness, Always Here",
   },
-  description: "Freebie Gifts",
+  description: "Thoughtful gifts and lasting stainless steel keepsakes, made to spread happiness with a little Freebie feeling."
 };
 
-export default async function RootLayout({
+export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const isAuthenticated = await checkAuth();
-
   return (
     <html
       suppressHydrationWarning
@@ -32,9 +29,10 @@ export default async function RootLayout({
       className={`${marhey.className} h-full antialiased`}
     >
       <body suppressHydrationWarning className="min-h-full flex flex-col">
-        <Header isAuthenticated={isAuthenticated} />
-        <ErrorBoundary title="Error">{children}</ErrorBoundary>
-        <Footer />
+        <LanguageProvider>
+          <Header isAuthenticated={false} />
+          <ErrorBoundary title="Error">{children}</ErrorBoundary>
+        </LanguageProvider>
       </body>
     </html>
   );
