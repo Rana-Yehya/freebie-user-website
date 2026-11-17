@@ -12,8 +12,7 @@ const products = [
     name: "Honey Drop Necklace",
     type: "Necklaces",
     price: 680,
-    image:
-      "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/20260926_153625-cBhu27CO5fAX3z0JbziFcBKzvbg9Tm.jpg",
+    image: "/freebie-necklace.png",
     note: "A little sweetness, close to her heart.",
   },
   {
@@ -21,8 +20,7 @@ const products = [
     name: "Little Hive Hoops",
     type: "Earrings",
     price: 540,
-    image:
-      "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/20260926_154132-LhRzewWGwQDTXHNZVvtX7Y1uzHQrZX.jpg",
+    image: "/freebie-earrings.png",
     note: "A golden detail for every day.",
   },
   {
@@ -30,8 +28,7 @@ const products = [
     name: "Always Bracelet",
     type: "Bracelets",
     price: 620,
-    image:
-      "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/20260926_154616-expCfKcIEv0lM5CMfK3hTqqwK4mgK2.jpg",
+    image: "/freebie-bracelet.png",
     note: "A keepsake she can wear, always.",
   },
   {
@@ -174,13 +171,7 @@ function ProductCard({
   const productNote = localized?.note ?? product.note;
   return (
     <article className="freebie-card group overflow-hidden rounded-[1.35rem] border border-[#eee5d8] bg-white">
-      <div
-        className={`relative aspect-[4/4.5] overflow-hidden bg-[#f6f0e7] ${
-          ["honey-drop", "hive-hoops", "always-bracelet"].includes(product.id)
-            ? "freebie-product-scene"
-            : ""
-        }`}
-      >
+      <div className="relative aspect-[4/4.5] overflow-hidden bg-[#f6f0e7]">
         {!loaded && (
           <div
             className="absolute inset-0 z-[1] animate-pulse bg-gradient-to-br from-[#f7f0e4] via-[#eee5d8] to-[#f7f0e4]"
@@ -466,8 +457,16 @@ export default function FreebieStorefront() {
           </h2>
           <div className="grid gap-5 md:grid-cols-3">
             {[
-              { n: "01", title: t("benefitOneTitle"), body: t("benefitOneBody") },
-              { n: "02", title: t("benefitTwoTitle"), body: t("benefitTwoBody") },
+              {
+                n: "01",
+                title: t("benefitOneTitle"),
+                body: t("benefitOneBody"),
+              },
+              {
+                n: "02",
+                title: t("benefitTwoTitle"),
+                body: t("benefitTwoBody"),
+              },
               {
                 n: "03",
                 title: t("benefitThreeTitle"),
